@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>จัดการเว็บไซต์ — พัทลุงสิทธิชัย</title>
+  <meta name="robots" content="noindex, nofollow">
+  <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
+  <style>
+    *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+    :root{--red:#E8002D;--dark:#1A1A2E;--bg:#F4F4F0;--card:#fff;--border:#E5E5E0;--radius:10px}
+    body{font-family:'Sarabun',sans-serif;background:var(--bg);color:var(--dark)}
+
+    /* TOP BAR */
+    .topbar{background:var(--dark);padding:0 24px;height:56px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100}
+    .topbar-left{display:flex;align-items:center;gap:12px}
+    .topbar-logo{color:var(--red);font-size:20px}
+    .topbar-title{color:#fff;font-size:14px;font-weight:700}
+    .topbar-sub{color:rgba(255,255,255,.4);font-size:11px}
+    .topbar-right{display:flex;gap:10px}
+    .btn-preview{background:transparent;color:rgba(255,255,255,.7);border:1px solid rgba(255,255,255,.25);border-radius:7px;padding:7px 14px;font-size:13px;font-weight:600;cursor:pointer;font-family:'Sarabun',sans-serif;display:flex;align-items:center;gap:5px}
+    .btn-save{background:var(--red);color:#fff;border:none;border-radius:7px;padding:7px 18px;font-size:13px;font-weight:700;cursor:pointer;font-family:'Sarabun',sans-serif;display:flex;align-items:center;gap:5px}
+    .btn-save:hover{opacity:.88}
+
+    /* LAYOUT */
+    .layout{display:grid;grid-template-columns:200px 1fr;min-height:calc(100vh - 56px)}
+
+    /* SIDEBAR */
+    .sidebar{background:var(--card);border-right:1px solid var(--border);padding:16px 0}
+    .sidebar-section{padding:8px 16px 4px;font-size:10px;font-weight:700;color:#aaa;letter-spacing:1px;text-transform:uppercase}
+    .sidebar-item{display:flex;align-items:center;gap:8px;padding:9px 16px;font-size:13px;font-weight:500;color:#555;cursor:pointer;border-left:3px solid transparent;transition:all .15s}
+    .sidebar-item:hover{background:#F7F7F5;color:var(--dark)}
+    .sidebar-item.active{background:#FFF0F2;color:var(--red);border-left-color:var(--red);font-weight:600}
+    .sidebar-item i{font-size:16px}
+
+    /* CONTENT */
+    .content{padding:24px;overflow-y:auto}
+    .page{display:none}
+    .page.active{display:block}
+    .page-title{font-size:20px;font-weight:800;margin-bottom:4px}
+    .page-sub{font-size:13px;color:#888;margin-bottom:24px}
+
+    /* CARDS */
+    .card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:20px;margin-bottom:16px}
+    .card-title{font-size:14px;font-weight:700;margin-bottom:14px;display:flex;align-items:center;gap:7px;color:var(--dark)}
+    .card-title i{color:var(--red);font-size:18px}
+
+    /* FORM */
+    label{display:block;font-size:12px;font-weight:600;color:#555;margin-bottom:5px}
+    input[type=text],input[type=tel],input[type=url],input[type=number],textarea,select{
+      width:100%;border:1px solid var(--border);border-radius:7px;padding:9px 12px;
+      font-size:13px;font-family:'Sarabun',sans-serif;color:var(--dark);background:#fff;
+      outline:none;transition:border-color .15s
+    }
+    input:focus,textarea:focus,select:focus{border-color:var(--red)}
+    textarea{resize:vertical;min-height:80px}
+    .form-row{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px}
+    .form-group{margin-bottom:14px}
+    .form-group:last-child{margin-bottom:0}
+
+    /* COLOR PICKER */
+    .color-row{display:flex;align-items:center;gap:10px}
+    input[type=color]{width:44px;height:36px;border:1px solid var(--border);border-radius:7px;padding:3px;cursor:pointer;background:#fff}
+
+    /* PRODUCT / FAQ ITEMS */
+    .item-list{display:flex;flex-direction:column;gap:10px}
+    .item-card{background:#FAFAF8;border:1px solid var(--border);border-radius:8px;padding:14px;position:relative}
+    .item-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px}
+    .item-label{font-size:13px;font-weight:700;color:var(--dark)}
+    .item-actions{display:flex;gap:6px}
+    .btn-del{background:#FFF0F2;color:var(--red);border:1px solid #FECDD5;border-radius:6px;padding:4px 8px;font-size:11px;font-weight:600;cursor:pointer;font-family:'Sarabun',sans-serif}
+    .btn-add{background:var(--dark);color:#fff;border:none;border-radius:7px;padding:9px 16px;font-size:13px;font-weight:700;cursor:pointer;font-family:'Sarabun',sans-serif;display:flex;align-items:center;gap:6px;margin-top:12px}
+    .btn-add:hover{opacity:.88}
+
+    /* TOAST */
+    .toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(80px);background:var(--dark);color:#fff;padding:12px 24px;border-radius:99px;font-size:14px;font-weight:600;z-index:9999;transition:transform .3s ease;white-space:nowrap}
+    .toast.show{transform:translateX(-50%) translateY(0)}
+
+    /* EXPORT BOX */
+    .export-box{background:#1A1A2E;border-radius:var(--radius);padding:20px;margin-top:16px}
+    .export-title{color:#fff;font-size:14px;font-weight:700;margin-bottom:8px}
+    .export-sub{color:rgba(255,255,255,.5);font-size:12px;margin-bottom:14px;line-height:1.7}
+    .export-steps{display:flex;flex-direction:column;gap:8px;margin-bottom:16px}
+    .export-step{display:flex;align-items:flex-start;gap:10px;font-size:13px;color:rgba(255,255,255,.75)}
+    .export-step .num{width:22px;height:22px;border-radius:50%;background:var(--red);color:#fff;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;flex-shrink:0}
+    .btn-export{background:var(--red);color:#fff;border:none;border-radius:7px;padding:11px 20px;font-size:14px;font-weight:700;cursor:pointer;font-family:'Sarabun',sans-serif;width:100%;display:flex;align-items:center;justify-content:center;gap:8px}
+  </style>
+</head>
+<body>
+
+<!-- TOP BAR -->
+<div class="topbar">
+  <div class="topbar-left">
+    <i class="ti ti-settings topbar-logo"></i>
+    <div>
+      <div class="topbar-title">จัดการเว็บไซต์</div>
+      <div class="topbar-sub">พัทลุงสิทธิชัยวัสดุก่อสร้าง</div>
+    </div>
+  </div>
+  <div class="topbar-right">
+    <button class="btn-preview" onclick="window.open('index.html','_blank')"><i class="ti ti-eye" style="font-size:15px"></i> ดูเว็บ</button>
+    <button class="btn-save" onclick="saveAndExport()"><i class="ti ti-download" style="font-size:15px"></i> บันทึก & ดาวน์โหลด</button>
+  </div>
+</div>
+
+<!-- LAYOUT -->
+<div class="layout">
+
+  <!-- SIDEBAR -->
+  <div class="sidebar">
+    <div class="sidebar-section">ทั่วไป</div>
+    <div class="sidebar-item active" onclick="showPage('general',this)"><i class="ti ti-building-store"></i> ข้อมูลร้าน</div>
+    <div class="sidebar-item" onclick="showPage('colors',this)"><i class="ti ti-palette"></i> สีและดีไซน์</div>
+    <div class="sidebar-section">เนื้อหา</div>
+    <div class="sidebar-item" onclick="showPage('promos',this)"><i class="ti ti-speakerphone"></i> โปรโมชั่น</div>
+    <div class="sidebar-item" onclick="showPage('products',this)"><i class="ti ti-package"></i> สินค้า</div>
+    <div class="sidebar-item" onclick="showPage('categories',this)"><i class="ti ti-category"></i> หมวดหมู่</div>
+    <div class="sidebar-item" onclick="showPage('faq',this)"><i class="ti ti-help-circle"></i> FAQ</div>
+    <div class="sidebar-section">สาขา</div>
+    <div class="sidebar-item" onclick="showPage('branch1',this)"><i class="ti ti-map-pin"></i> สาขาในเมือง</div>
+    <div class="sidebar-item" onclick="showPage('branch2',this)"><i class="ti ti-map-pin"></i> สาขาถนนเอเชีย</div>
+    <div class="sidebar-section">เผยแพร่</div>
+    <div class="sidebar-item" onclick="showPage('publish',this)"><i class="ti ti-upload"></i> อัปโหลดขึ้นเว็บ</div>
+  </div>
+
+  <!-- CONTENT -->
+  <div class="content">
+
+    <!-- GENERAL -->
+    <div class="page active" id="page-general">
+      <div class="page-title">ข้อมูลร้าน</div>
+      <div class="page-sub">ชื่อร้าน คำอธิบาย และข้อมูลทั่วไป</div>
+      <div class="card">
+        <div class="card-title"><i class="ti ti-building-store"></i> ข้อมูลหลัก</div>
+        <div class="form-row">
+          <div class="form-group"><label>ชื่อร้าน (ภาษาไทย)</label><input type="text" id="g-shopName"></div>
+          <div class="form-group"><label>ชื่อร้าน (English)</label><input type="text" id="g-shopNameEn"></div>
+        </div>
+        <div class="form-group"><label>คำอธิบายสั้น (แสดงใต้ชื่อร้านในหน้าแรก)</label><input type="text" id="g-tagline"></div>
+        <div class="form-group"><label>ปีประสบการณ์ (แสดงใน Hero เช่น "30+")</label><input type="text" id="g-established"></div>
+      </div>
+    </div>
+
+    <!-- COLORS -->
+    <div class="page" id="page-colors">
+      <div class="page-title">สีและดีไซน์</div>
+      <div class="page-sub">เปลี่ยนสีหลักของเว็บได้เลย</div>
+      <div class="card">
+        <div class="card-title"><i class="ti ti-palette"></i> สีหลัก</div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>สีหลัก (Primary) — ปุ่ม, badge, accent</label>
+            <div class="color-row">
+              <input type="color" id="c-primary">
+              <input type="text" id="c-primary-hex" style="width:120px">
+            </div>
+          </div>
+          <div class="form-group">
+            <label>สีเข้ม (Dark) — Navbar, Hero, Footer</label>
+            <div class="color-row">
+              <input type="color" id="c-dark">
+              <input type="text" id="c-dark-hex" style="width:120px">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PROMOS -->
+    <div class="page" id="page-promos">
+      <div class="page-title">Banner โปรโมชั่น</div>
+      <div class="page-sub">แก้ข้อความใน banner หน้าหลัก</div>
+      <div class="card">
+        <div class="card-title"><i class="ti ti-speakerphone"></i> Banner (มี 2 อัน)</div>
+        <div class="item-list" id="promoList"></div>
+      </div>
+    </div>
+
+    <!-- PRODUCTS -->
+    <div class="page" id="page-products">
+      <div class="page-title">สินค้าแนะนำ</div>
+      <div class="page-sub">เพิ่ม ลบ หรือแก้ไขสินค้าและราคา</div>
+      <div class="card">
+        <div class="card-title"><i class="ti ti-package"></i> รายการสินค้า</div>
+        <div class="item-list" id="productList"></div>
+        <button class="btn-add" onclick="addProduct()"><i class="ti ti-plus"></i> เพิ่มสินค้า</button>
+      </div>
+    </div>
+
+    <!-- CATEGORIES -->
+    <div class="page" id="page-categories">
+      <div class="page-title">หมวดหมู่สินค้า</div>
+      <div class="page-sub">แก้ชื่อหมวดหมู่ที่แสดงในหน้าหลัก</div>
+      <div class="card">
+        <div class="card-title"><i class="ti ti-category"></i> หมวดหมู่</div>
+        <div class="item-list" id="catList"></div>
+      </div>
+    </div>
+
+    <!-- FAQ -->
+    <div class="page" id="page-faq">
+      <div class="page-title">คำถามที่พบบ่อย (FAQ)</div>
+      <div class="page-sub">แก้ไขหรือเพิ่มคำถาม-คำตอบ ช่วย SEO มาก</div>
+      <div class="card">
+        <div class="card-title"><i class="ti ti-help-circle"></i> FAQ</div>
+        <div class="item-list" id="faqList"></div>
+        <button class="btn-add" onclick="addFaq()"><i class="ti ti-plus"></i> เพิ่มคำถาม</button>
+      </div>
+    </div>
+
+    <!-- BRANCH 1 -->
+    <div class="page" id="page-branch1">
+      <div class="page-title">สาขาในเมือง</div>
+      <div class="page-sub">ข้อมูลติดต่อและที่อยู่สาขาที่ 1</div>
+      <div class="card">
+        <div class="card-title"><i class="ti ti-map-pin"></i> ข้อมูลสาขาในเมือง</div>
+        <div class="form-row">
+          <div class="form-group"><label>ชื่อสาขา (ไทย)</label><input type="text" id="b0-name"></div>
+          <div class="form-group"><label>ชื่อสาขา (English)</label><input type="text" id="b0-nameEn"></div>
+        </div>
+        <div class="form-group"><label>ที่อยู่</label><textarea id="b0-address" rows="2"></textarea></div>
+        <div class="form-row">
+          <div class="form-group"><label>เบอร์โทรศัพท์</label><input type="tel" id="b0-phone"></div>
+          <div class="form-group"><label>เวลาทำการ</label><input type="text" id="b0-hours"></div>
+        </div>
+        <div class="form-group"><label>Google Maps URL</label><input type="url" id="b0-mapUrl"></div>
+        <div class="form-row">
+          <div class="form-group"><label>Line URL</label><input type="url" id="b0-lineUrl"></div>
+          <div class="form-group"><label>Facebook URL</label><input type="url" id="b0-fbUrl"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- BRANCH 2 -->
+    <div class="page" id="page-branch2">
+      <div class="page-title">สาขาถนนเอเชีย</div>
+      <div class="page-sub">ข้อมูลติดต่อและที่อยู่สาขาที่ 2</div>
+      <div class="card">
+        <div class="card-title"><i class="ti ti-map-pin"></i> ข้อมูลสาขาถนนเอเชีย</div>
+        <div class="form-row">
+          <div class="form-group"><label>ชื่อสาขา (ไทย)</label><input type="text" id="b1-name"></div>
+          <div class="form-group"><label>ชื่อสาขา (English)</label><input type="text" id="b1-nameEn"></div>
+        </div>
+        <div class="form-group"><label>ที่อยู่</label><textarea id="b1-address" rows="2"></textarea></div>
+        <div class="form-row">
+          <div class="form-group"><label>เบอร์โทรศัพท์</label><input type="tel" id="b1-phone"></div>
+          <div class="form-group"><label>เวลาทำการ</label><input type="text" id="b1-hours"></div>
+        </div>
+        <div class="form-group"><label>Google Maps URL</label><input type="url" id="b1-mapUrl"></div>
+        <div class="form-row">
+          <div class="form-group"><label>Line URL</label><input type="url" id="b1-lineUrl"></div>
+          <div class="form-group"><label>Facebook URL</label><input type="url" id="b1-fbUrl"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PUBLISH -->
+    <div class="page" id="page-publish">
+      <div class="page-title">อัปโหลดขึ้นเว็บ</div>
+      <div class="page-sub">หลังแก้ไขเสร็จ ทำตามขั้นตอนนี้เพื่ออัปเดตเว็บไซต์</div>
+      <div class="card">
+        <div class="card-title"><i class="ti ti-upload"></i> วิธีอัปเดตเว็บหลังแก้ไข</div>
+        <div class="export-box">
+          <div class="export-title">ขั้นตอนง่ายๆ 3 ขั้น</div>
+          <div class="export-steps">
+            <div class="export-step"><div class="num">1</div><span>กดปุ่ม "บันทึก & ดาวน์โหลด" มุมบนขวา — จะได้ไฟล์ <strong>site-config.js</strong></span></div>
+            <div class="export-step"><div class="num">2</div><span>ไปที่ github.com/phatthalungsittichai/phatthalungsittichai.github.io → กด <strong>site-config.js</strong> → กดดินสอ ✏️ → วางโค้ดที่ copy มา → Commit</span></div>
+            <div class="export-step"><div class="num">3</div><span>รอ 1-2 นาที เว็บจะอัปเดตอัตโนมัติ</span></div>
+          </div>
+          <button class="btn-export" onclick="saveAndExport()"><i class="ti ti-download"></i> บันทึก & ดาวน์โหลด site-config.js</button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- TOAST -->
+<div class="toast" id="toast">✅ บันทึกสำเร็จ! ดาวน์โหลดไฟล์แล้ว</div>
+
+<script src="site-config.js"></script>
+<script>
+var C = JSON.parse(JSON.stringify(SITE_CONFIG));
+
+// ── LOAD ALL FIELDS ────────────────────────────────────
+function loadAll(){
+  // General
+  v('g-shopName', C.shopName);
+  v('g-shopNameEn', C.shopNameEn);
+  v('g-tagline', C.tagline);
+  v('g-established', C.established);
+  // Colors
+  v('c-primary', C.colors.primary);
+  v('c-primary-hex', C.colors.primary);
+  v('c-dark', C.colors.dark);
+  v('c-dark-hex', C.colors.dark);
+  // Branches
+  [0,1].forEach(function(i){
+    var b = C.branches[i];
+    v('b'+i+'-name', b.name);
+    v('b'+i+'-nameEn', b.nameEn);
+    v('b'+i+'-address', b.address);
+    v('b'+i+'-phone', b.phone);
+    v('b'+i+'-hours', b.hours);
+    v('b'+i+'-mapUrl', b.mapUrl);
+    v('b'+i+'-lineUrl', b.lineUrl);
+    v('b'+i+'-fbUrl', b.fbUrl);
+  });
+  // Promos
+  renderPromos();
+  // Products
+  renderProducts();
+  // Categories
+  renderCats();
+  // FAQ
+  renderFaqs();
+}
+
+function v(id, val){
+  var el = document.getElementById(id);
+  if(el) el.value = val || '';
+}
+
+// Color sync
+['primary','dark'].forEach(function(key){
+  var picker = document.getElementById('c-'+key);
+  var hex = document.getElementById('c-'+key+'-hex');
+  if(picker) picker.addEventListener('input', function(){ hex.value = this.value; });
+  if(hex) hex.addEventListener('input', function(){ if(/^#[0-9A-Fa-f]{6}$/.test(this.value)) picker.value = this.value; });
+});
+
+// ── PROMOS ─────────────────────────────────────────────
+function renderPromos(){
+  document.getElementById('promoList').innerHTML = C.promos.map(function(p,i){
+    return '<div class="item-card">'+
+      '<div class="item-header"><div class="item-label">Banner '+(i+1)+(i===0?' (สีแดง)':' (สีเข้ม)')+'</div></div>'+
+      '<div class="form-group"><label>หัวข้อ (ใส่ \\n เพื่อขึ้นบรรทัดใหม่)</label>'+
+      '<input type="text" id="promo-tag-'+i+'" value="'+p.tag+'"></div>'+
+      '<div class="form-group"><label>ข้อความหลัก</label>'+
+      '<textarea id="promo-title-'+i+'" rows="2">'+p.title+'</textarea></div>'+
+    '</div>';
+  }).join('');
+}
+
+// ── PRODUCTS ───────────────────────────────────────────
+function renderProducts(){
+  document.getElementById('productList').innerHTML = C.products.map(function(p,i){
+    return '<div class="item-card" id="prod-'+i+'">'+
+      '<div class="item-header"><div class="item-label">สินค้า '+(i+1)+'</div>'+
+      '<div class="item-actions"><button class="btn-del" onclick="delProduct('+i+')">ลบ</button></div></div>'+
+      '<div class="form-row">'+
+      '<div class="form-group"><label>ไอคอน (Emoji)</label><input type="text" id="p-icon-'+i+'" value="'+p.icon+'" style="width:80px"></div>'+
+      '<div class="form-group"><label>แบรนด์</label><input type="text" id="p-brand-'+i+'" value="'+p.brand+'"></div>'+
+      '</div>'+
+      '<div class="form-row">'+
+      '<div class="form-group"><label>ชื่อสินค้า (ไทย)</label><input type="text" id="p-name-'+i+'" value="'+p.name+'"></div>'+
+      '<div class="form-group"><label>ชื่อสินค้า (English)</label><input type="text" id="p-nameEn-'+i+'" value="'+p.nameEn+'"></div>'+
+      '</div>'+
+      '<div class="form-row">'+
+      '<div class="form-group"><label>ราคา (฿)</label><input type="number" id="p-price-'+i+'" value="'+p.price+'"></div>'+
+      '<div class="form-group"><label>หน่วย เช่น ถุง, แผ่น</label><input type="text" id="p-unit-'+i+'" value="'+p.unit+'"></div>'+
+      '</div>'+
+    '</div>';
+  }).join('');
+}
+function addProduct(){
+  C.products.push({icon:'📦',brand:'',name:'สินค้าใหม่',nameEn:'New Product',price:'0',unit:'ชิ้น'});
+  renderProducts();
+}
+function delProduct(i){ C.products.splice(i,1); renderProducts(); }
+
+// ── CATEGORIES ─────────────────────────────────────────
+function renderCats(){
+  document.getElementById('catList').innerHTML = C.categories.map(function(c,i){
+    return '<div class="item-card">'+
+      '<div class="form-row">'+
+      '<div class="form-group"><label>ไอคอน</label><input type="text" id="cat-icon-'+i+'" value="'+c.icon+'" style="width:80px"></div>'+
+      '<div class="form-group"><label>ชื่อ (ไทย)</label><input type="text" id="cat-name-'+i+'" value="'+c.name+'"></div>'+
+      '<div class="form-group"><label>ชื่อ (English)</label><input type="text" id="cat-nameEn-'+i+'" value="'+c.nameEn+'"></div>'+
+      '</div>'+
+    '</div>';
+  }).join('');
+}
+
+// ── FAQ ────────────────────────────────────────────────
+function renderFaqs(){
+  document.getElementById('faqList').innerHTML = C.faqs.map(function(f,i){
+    return '<div class="item-card">'+
+      '<div class="item-header"><div class="item-label">คำถามที่ '+(i+1)+'</div>'+
+      '<div class="item-actions"><button class="btn-del" onclick="delFaq('+i+')">ลบ</button></div></div>'+
+      '<div class="form-group"><label>คำถาม</label><input type="text" id="faq-q-'+i+'" value="'+f.q.replace(/"/g,'&quot;')+'"></div>'+
+      '<div class="form-group"><label>คำตอบ</label><textarea id="faq-a-'+i+'" rows="2">'+f.a+'</textarea></div>'+
+    '</div>';
+  }).join('');
+}
+function addFaq(){ C.faqs.push({q:'คำถามใหม่',a:'คำตอบ'}); renderFaqs(); }
+function delFaq(i){ C.faqs.splice(i,1); renderFaqs(); }
+
+// ── COLLECT & BUILD CONFIG ──────────────────────────────
+function collectAll(){
+  C.shopName = document.getElementById('g-shopName').value;
+  C.shopNameEn = document.getElementById('g-shopNameEn').value;
+  C.tagline = document.getElementById('g-tagline').value;
+  C.established = document.getElementById('g-established').value;
+  C.colors.primary = document.getElementById('c-primary').value;
+  C.colors.dark = document.getElementById('c-dark').value;
+  [0,1].forEach(function(i){
+    C.branches[i].name = document.getElementById('b'+i+'-name').value;
+    C.branches[i].nameEn = document.getElementById('b'+i+'-nameEn').value;
+    C.branches[i].address = document.getElementById('b'+i+'-address').value;
+    C.branches[i].phone = document.getElementById('b'+i+'-phone').value;
+    C.branches[i].hours = document.getElementById('b'+i+'-hours').value;
+    C.branches[i].mapUrl = document.getElementById('b'+i+'-mapUrl').value;
+    C.branches[i].lineUrl = document.getElementById('b'+i+'-lineUrl').value;
+    C.branches[i].fbUrl = document.getElementById('b'+i+'-fbUrl').value;
+  });
+  C.promos.forEach(function(p,i){
+    p.tag = document.getElementById('promo-tag-'+i).value;
+    p.title = document.getElementById('promo-title-'+i).value;
+  });
+  C.products.forEach(function(p,i){
+    p.icon = document.getElementById('p-icon-'+i).value;
+    p.brand = document.getElementById('p-brand-'+i).value;
+    p.name = document.getElementById('p-name-'+i).value;
+    p.nameEn = document.getElementById('p-nameEn-'+i).value;
+    p.price = document.getElementById('p-price-'+i).value;
+    p.unit = document.getElementById('p-unit-'+i).value;
+  });
+  C.categories.forEach(function(c,i){
+    c.icon = document.getElementById('cat-icon-'+i).value;
+    c.name = document.getElementById('cat-name-'+i).value;
+    c.nameEn = document.getElementById('cat-nameEn-'+i).value;
+  });
+  C.faqs.forEach(function(f,i){
+    f.q = document.getElementById('faq-q-'+i).value;
+    f.a = document.getElementById('faq-a-'+i).value;
+  });
+}
+
+function buildConfigJS(){
+  return '// ═══════════════════════════════════════════════════════\n'+
+    '//  SITE CONFIG — แก้ข้อมูลทั้งหมดได้ที่นี่\n'+
+    '// ═══════════════════════════════════════════════════════\n\n'+
+    'var SITE_CONFIG = ' + JSON.stringify(C, null, 2) + ';\n';
+}
+
+// ── SAVE & DOWNLOAD ─────────────────────────────────────
+function saveAndExport(){
+  collectAll();
+  var content = buildConfigJS();
+  var blob = new Blob([content], {type:'text/javascript'});
+  var url = URL.createObjectURL(blob);
+  var a = document.createElement('a');
+  a.href = url; a.download = 'site-config.js';
+  document.body.appendChild(a); a.click();
+  document.body.removeChild(a); URL.revokeObjectURL(url);
+  showToast();
+}
+
+function showToast(){
+  var t = document.getElementById('toast');
+  t.classList.add('show');
+  setTimeout(function(){ t.classList.remove('show'); }, 3000);
+}
+
+// ── NAV ─────────────────────────────────────────────────
+function showPage(name, el){
+  document.querySelectorAll('.page').forEach(function(p){ p.classList.remove('active'); });
+  document.querySelectorAll('.sidebar-item').forEach(function(s){ s.classList.remove('active'); });
+  document.getElementById('page-'+name).classList.add('active');
+  el.classList.add('active');
+}
+
+// ── INIT ────────────────────────────────────────────────
+loadAll();
+</script>
+</body>
+</html>

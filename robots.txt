@@ -2,4 +2,4 @@ User-agent: *
 Allow: /
 
 # Sitemap location
-Sitemap: https://YOUR-USERNAME.github.io/sitemap.xml
+Sitemap: https://phatthalungsittichai.github.io/sitemap.xml
