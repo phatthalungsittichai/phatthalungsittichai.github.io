@@ -1,478 +1,540 @@
 <!DOCTYPE html>
 <html lang="th">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>จัดการเว็บไซต์ — พัทลุงสิทธิชัย</title>
-  <meta name="robots" content="noindex, nofollow">
-  <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
-  <style>
-    *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
-    :root{--red:#E8002D;--dark:#1A1A2E;--bg:#F4F4F0;--card:#fff;--border:#E5E5E0;--radius:10px}
-    body{font-family:'Sarabun',sans-serif;background:var(--bg);color:var(--dark)}
-
-    /* TOP BAR */
-    .topbar{background:var(--dark);padding:0 24px;height:56px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100}
-    .topbar-left{display:flex;align-items:center;gap:12px}
-    .topbar-logo{color:var(--red);font-size:20px}
-    .topbar-title{color:#fff;font-size:14px;font-weight:700}
-    .topbar-sub{color:rgba(255,255,255,.4);font-size:11px}
-    .topbar-right{display:flex;gap:10px}
-    .btn-preview{background:transparent;color:rgba(255,255,255,.7);border:1px solid rgba(255,255,255,.25);border-radius:7px;padding:7px 14px;font-size:13px;font-weight:600;cursor:pointer;font-family:'Sarabun',sans-serif;display:flex;align-items:center;gap:5px}
-    .btn-save{background:var(--red);color:#fff;border:none;border-radius:7px;padding:7px 18px;font-size:13px;font-weight:700;cursor:pointer;font-family:'Sarabun',sans-serif;display:flex;align-items:center;gap:5px}
-    .btn-save:hover{opacity:.88}
-
-    /* LAYOUT */
-    .layout{display:grid;grid-template-columns:200px 1fr;min-height:calc(100vh - 56px)}
-
-    /* SIDEBAR */
-    .sidebar{background:var(--card);border-right:1px solid var(--border);padding:16px 0}
-    .sidebar-section{padding:8px 16px 4px;font-size:10px;font-weight:700;color:#aaa;letter-spacing:1px;text-transform:uppercase}
-    .sidebar-item{display:flex;align-items:center;gap:8px;padding:9px 16px;font-size:13px;font-weight:500;color:#555;cursor:pointer;border-left:3px solid transparent;transition:all .15s}
-    .sidebar-item:hover{background:#F7F7F5;color:var(--dark)}
-    .sidebar-item.active{background:#FFF0F2;color:var(--red);border-left-color:var(--red);font-weight:600}
-    .sidebar-item i{font-size:16px}
-
-    /* CONTENT */
-    .content{padding:24px;overflow-y:auto}
-    .page{display:none}
-    .page.active{display:block}
-    .page-title{font-size:20px;font-weight:800;margin-bottom:4px}
-    .page-sub{font-size:13px;color:#888;margin-bottom:24px}
-
-    /* CARDS */
-    .card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:20px;margin-bottom:16px}
-    .card-title{font-size:14px;font-weight:700;margin-bottom:14px;display:flex;align-items:center;gap:7px;color:var(--dark)}
-    .card-title i{color:var(--red);font-size:18px}
-
-    /* FORM */
-    label{display:block;font-size:12px;font-weight:600;color:#555;margin-bottom:5px}
-    input[type=text],input[type=tel],input[type=url],input[type=number],textarea,select{
-      width:100%;border:1px solid var(--border);border-radius:7px;padding:9px 12px;
-      font-size:13px;font-family:'Sarabun',sans-serif;color:var(--dark);background:#fff;
-      outline:none;transition:border-color .15s
-    }
-    input:focus,textarea:focus,select:focus{border-color:var(--red)}
-    textarea{resize:vertical;min-height:80px}
-    .form-row{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px}
-    .form-group{margin-bottom:14px}
-    .form-group:last-child{margin-bottom:0}
-
-    /* COLOR PICKER */
-    .color-row{display:flex;align-items:center;gap:10px}
-    input[type=color]{width:44px;height:36px;border:1px solid var(--border);border-radius:7px;padding:3px;cursor:pointer;background:#fff}
-
-    /* PRODUCT / FAQ ITEMS */
-    .item-list{display:flex;flex-direction:column;gap:10px}
-    .item-card{background:#FAFAF8;border:1px solid var(--border);border-radius:8px;padding:14px;position:relative}
-    .item-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px}
-    .item-label{font-size:13px;font-weight:700;color:var(--dark)}
-    .item-actions{display:flex;gap:6px}
-    .btn-del{background:#FFF0F2;color:var(--red);border:1px solid #FECDD5;border-radius:6px;padding:4px 8px;font-size:11px;font-weight:600;cursor:pointer;font-family:'Sarabun',sans-serif}
-    .btn-add{background:var(--dark);color:#fff;border:none;border-radius:7px;padding:9px 16px;font-size:13px;font-weight:700;cursor:pointer;font-family:'Sarabun',sans-serif;display:flex;align-items:center;gap:6px;margin-top:12px}
-    .btn-add:hover{opacity:.88}
-
-    /* TOAST */
-    .toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(80px);background:var(--dark);color:#fff;padding:12px 24px;border-radius:99px;font-size:14px;font-weight:600;z-index:9999;transition:transform .3s ease;white-space:nowrap}
-    .toast.show{transform:translateX(-50%) translateY(0)}
-
-    /* EXPORT BOX */
-    .export-box{background:#1A1A2E;border-radius:var(--radius);padding:20px;margin-top:16px}
-    .export-title{color:#fff;font-size:14px;font-weight:700;margin-bottom:8px}
-    .export-sub{color:rgba(255,255,255,.5);font-size:12px;margin-bottom:14px;line-height:1.7}
-    .export-steps{display:flex;flex-direction:column;gap:8px;margin-bottom:16px}
-    .export-step{display:flex;align-items:flex-start;gap:10px;font-size:13px;color:rgba(255,255,255,.75)}
-    .export-step .num{width:22px;height:22px;border-radius:50%;background:var(--red);color:#fff;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;flex-shrink:0}
-    .btn-export{background:var(--red);color:#fff;border:none;border-radius:7px;padding:11px 20px;font-size:14px;font-weight:700;cursor:pointer;font-family:'Sarabun',sans-serif;width:100%;display:flex;align-items:center;justify-content:center;gap:8px}
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>จัดการเว็บไซต์ — พัทลุงสิทธิชัย</title>
+<meta name="robots" content="noindex,nofollow">
+<link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:root{--red:#E8002D;--dark:#1A1A2E;--bg:#F2F2EE;--card:#fff;--border:#E5E5E0;--r:10px}
+body{font-family:'Sarabun',sans-serif;background:var(--bg);color:var(--dark);font-size:14px}
+/* TOPBAR */
+.topbar{background:var(--dark);height:54px;padding:0 20px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:200}
+.tl{display:flex;align-items:center;gap:10px}
+.tl-icon{color:var(--red);font-size:22px}
+.tl-name{color:#fff;font-size:14px;font-weight:700}
+.tl-sub{color:rgba(255,255,255,.4);font-size:11px}
+.tr{display:flex;gap:8px;align-items:center}
+.btn-view{background:transparent;color:rgba(255,255,255,.7);border:1px solid rgba(255,255,255,.2);border-radius:7px;padding:6px 14px;font-size:12px;font-weight:600;cursor:pointer;font-family:'Sarabun',sans-serif;display:flex;align-items:center;gap:5px}
+.btn-save{background:var(--red);color:#fff;border:none;border-radius:7px;padding:6px 16px;font-size:12px;font-weight:700;cursor:pointer;font-family:'Sarabun',sans-serif;display:flex;align-items:center;gap:5px}
+/* LAYOUT */
+.wrap{display:grid;grid-template-columns:210px 1fr;min-height:calc(100vh - 54px)}
+/* SIDEBAR */
+.sb{background:var(--card);border-right:1px solid var(--border);padding:12px 0;overflow-y:auto}
+.sb-sec{padding:10px 14px 4px;font-size:10px;font-weight:700;color:#bbb;letter-spacing:1.2px;text-transform:uppercase}
+.sb-item{display:flex;align-items:center;gap:8px;padding:8px 14px;font-size:13px;font-weight:500;color:#666;cursor:pointer;border-left:3px solid transparent;transition:all .12s}
+.sb-item i{font-size:16px;flex-shrink:0}
+.sb-item:hover{background:#F7F7F4;color:var(--dark)}
+.sb-item.on{background:#FFF0F2;color:var(--red);border-left-color:var(--red);font-weight:700}
+/* MAIN */
+.main{padding:24px;overflow-y:auto}
+.pg{display:none}.pg.on{display:block}
+.pg-title{font-size:20px;font-weight:800;margin-bottom:3px}
+.pg-sub{font-size:12px;color:#999;margin-bottom:20px}
+/* CARD */
+.card{background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:18px;margin-bottom:14px}
+.card-hd{font-size:13px;font-weight:700;margin-bottom:14px;display:flex;align-items:center;gap:6px}
+.card-hd i{color:var(--red);font-size:17px}
+/* FORM */
+label{display:block;font-size:11px;font-weight:700;color:#888;margin-bottom:4px;text-transform:uppercase;letter-spacing:.5px}
+input[type=text],input[type=tel],input[type=url],input[type=number],input[type=color],textarea,select{width:100%;border:1px solid var(--border);border-radius:7px;padding:8px 10px;font-size:13px;font-family:'Sarabun',sans-serif;color:var(--dark);background:#fff;outline:none;transition:border-color .15s}
+input:focus,textarea:focus,select:focus{border-color:var(--red);box-shadow:0 0 0 3px rgba(232,0,45,.08)}
+input[type=color]{padding:3px;height:36px;width:52px;cursor:pointer}
+textarea{resize:vertical;min-height:72px;line-height:1.6}
+.fg{margin-bottom:12px}
+.fg:last-child{margin-bottom:0}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.row3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px}
+.color-wrap{display:flex;align-items:center;gap:8px}
+.color-wrap input[type=text]{flex:1}
+/* ITEM CARDS */
+.item-list{display:flex;flex-direction:column;gap:10px}
+.ic{background:#FAFAF8;border:1px solid var(--border);border-radius:8px;padding:14px}
+.ic-hd{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px}
+.ic-label{font-size:13px;font-weight:700}
+.ic-acts{display:flex;gap:6px}
+.btn-del{background:#FFF0F2;color:var(--red);border:1px solid #FFCDD2;border-radius:6px;padding:3px 10px;font-size:11px;font-weight:700;cursor:pointer;font-family:'Sarabun',sans-serif}
+.btn-up,.btn-dn{background:#F5F5F0;color:#666;border:1px solid var(--border);border-radius:6px;padding:3px 8px;font-size:11px;cursor:pointer;font-family:'Sarabun',sans-serif}
+.btn-add{background:var(--dark);color:#fff;border:none;border-radius:7px;padding:9px 16px;font-size:13px;font-weight:700;cursor:pointer;font-family:'Sarabun',sans-serif;display:flex;align-items:center;gap:6px;margin-top:12px}
+/* EMOJI PICKER HINT */
+.emoji-hint{font-size:11px;color:#aaa;margin-top:3px}
+/* PUBLISH */
+.pub-box{background:var(--dark);border-radius:var(--r);padding:20px}
+.pub-title{color:#fff;font-size:15px;font-weight:800;margin-bottom:6px}
+.pub-sub{color:rgba(255,255,255,.5);font-size:12px;line-height:1.7;margin-bottom:16px}
+.pub-steps{display:flex;flex-direction:column;gap:8px;margin-bottom:18px}
+.ps{display:flex;gap:10px;font-size:13px;color:rgba(255,255,255,.8);align-items:flex-start}
+.ps .n{width:22px;height:22px;border-radius:50%;background:var(--red);color:#fff;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;flex-shrink:0;margin-top:1px}
+.ps code{background:rgba(255,255,255,.1);color:#fff;padding:1px 6px;border-radius:4px;font-family:monospace;font-size:12px}
+.btn-export{background:var(--red);color:#fff;border:none;border-radius:8px;padding:12px 20px;font-size:14px;font-weight:700;cursor:pointer;font-family:'Sarabun',sans-serif;width:100%;display:flex;align-items:center;justify-content:center;gap:8px}
+/* TOAST */
+.toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(100px);background:#1A1A2E;color:#fff;padding:12px 24px;border-radius:99px;font-size:13px;font-weight:600;z-index:9999;transition:transform .3s;white-space:nowrap;pointer-events:none}
+.toast.show{transform:translateX(-50%) translateY(0)}
+/* PREVIEW BADGE */
+.preview-icon{font-size:32px;text-align:center;padding:10px 0;background:#F7F7F4;border-radius:8px;margin-bottom:8px}
+</style>
 </head>
 <body>
 
-<!-- TOP BAR -->
 <div class="topbar">
-  <div class="topbar-left">
-    <i class="ti ti-settings topbar-logo"></i>
-    <div>
-      <div class="topbar-title">จัดการเว็บไซต์</div>
-      <div class="topbar-sub">พัทลุงสิทธิชัยวัสดุก่อสร้าง</div>
-    </div>
+  <div class="tl">
+    <i class="ti ti-settings tl-icon"></i>
+    <div><div class="tl-name">Admin Panel</div><div class="tl-sub">พัทลุงสิทธิชัยวัสดุก่อสร้าง</div></div>
   </div>
-  <div class="topbar-right">
-    <button class="btn-preview" onclick="window.open('index.html','_blank')"><i class="ti ti-eye" style="font-size:15px"></i> ดูเว็บ</button>
-    <button class="btn-save" onclick="saveAndExport()"><i class="ti ti-download" style="font-size:15px"></i> บันทึก & ดาวน์โหลด</button>
+  <div class="tr">
+    <button class="btn-view" onclick="window.open('https://phatthalungsittichai.github.io','_blank')"><i class="ti ti-eye" style="font-size:14px"></i> ดูเว็บ</button>
+    <button class="btn-save" onclick="saveAll()"><i class="ti ti-download" style="font-size:14px"></i> บันทึก & ดาวน์โหลด</button>
   </div>
 </div>
 
-<!-- LAYOUT -->
-<div class="layout">
+<div class="wrap">
+<div class="sb">
+  <div class="sb-sec">ทั่วไป</div>
+  <div class="sb-item on" onclick="go('general',this)"><i class="ti ti-building-store"></i>ข้อมูลร้าน</div>
+  <div class="sb-item" onclick="go('colors',this)"><i class="ti ti-palette"></i>สีทั้งเว็บ</div>
+  <div class="sb-sec">Branch Selector</div>
+  <div class="sb-item" onclick="go('overlay',this)"><i class="ti ti-layers-intersect"></i>หน้าเลือกสาขา</div>
+  <div class="sb-item" onclick="go('b0',this)"><i class="ti ti-map-pin"></i>สาขาในเมือง</div>
+  <div class="sb-item" onclick="go('b1',this)"><i class="ti ti-map-pin"></i>สาขาถนนเอเชีย</div>
+  <div class="sb-sec">หน้าหลัก</div>
+  <div class="sb-item" onclick="go('hero',this)"><i class="ti ti-home"></i>Hero Section</div>
+  <div class="sb-item" onclick="go('cats',this)"><i class="ti ti-category"></i>หมวดหมู่สินค้า</div>
+  <div class="sb-item" onclick="go('promos',this)"><i class="ti ti-speakerphone"></i>Banner โปรโมชั่น</div>
+  <div class="sb-item" onclick="go('products',this)"><i class="ti ti-package"></i>สินค้าแนะนำ</div>
+  <div class="sb-sec">ส่วนอื่นๆ</div>
+  <div class="sb-item" onclick="go('why',this)"><i class="ti ti-star"></i>Why Us</div>
+  <div class="sb-item" onclick="go('faq',this)"><i class="ti ti-help-circle"></i>FAQ</div>
+  <div class="sb-item" onclick="go('footer',this)"><i class="ti ti-layout-bottombar"></i>Footer</div>
+  <div class="sb-sec">เผยแพร่</div>
+  <div class="sb-item" onclick="go('publish',this)"><i class="ti ti-upload"></i>อัปโหลดขึ้นเว็บ</div>
+</div>
 
-  <!-- SIDEBAR -->
-  <div class="sidebar">
-    <div class="sidebar-section">ทั่วไป</div>
-    <div class="sidebar-item active" onclick="showPage('general',this)"><i class="ti ti-building-store"></i> ข้อมูลร้าน</div>
-    <div class="sidebar-item" onclick="showPage('colors',this)"><i class="ti ti-palette"></i> สีและดีไซน์</div>
-    <div class="sidebar-section">เนื้อหา</div>
-    <div class="sidebar-item" onclick="showPage('promos',this)"><i class="ti ti-speakerphone"></i> โปรโมชั่น</div>
-    <div class="sidebar-item" onclick="showPage('products',this)"><i class="ti ti-package"></i> สินค้า</div>
-    <div class="sidebar-item" onclick="showPage('categories',this)"><i class="ti ti-category"></i> หมวดหมู่</div>
-    <div class="sidebar-item" onclick="showPage('faq',this)"><i class="ti ti-help-circle"></i> FAQ</div>
-    <div class="sidebar-section">สาขา</div>
-    <div class="sidebar-item" onclick="showPage('branch1',this)"><i class="ti ti-map-pin"></i> สาขาในเมือง</div>
-    <div class="sidebar-item" onclick="showPage('branch2',this)"><i class="ti ti-map-pin"></i> สาขาถนนเอเชีย</div>
-    <div class="sidebar-section">เผยแพร่</div>
-    <div class="sidebar-item" onclick="showPage('publish',this)"><i class="ti ti-upload"></i> อัปโหลดขึ้นเว็บ</div>
-  </div>
+<div class="main">
 
-  <!-- CONTENT -->
-  <div class="content">
-
-    <!-- GENERAL -->
-    <div class="page active" id="page-general">
-      <div class="page-title">ข้อมูลร้าน</div>
-      <div class="page-sub">ชื่อร้าน คำอธิบาย และข้อมูลทั่วไป</div>
-      <div class="card">
-        <div class="card-title"><i class="ti ti-building-store"></i> ข้อมูลหลัก</div>
-        <div class="form-row">
-          <div class="form-group"><label>ชื่อร้าน (ภาษาไทย)</label><input type="text" id="g-shopName"></div>
-          <div class="form-group"><label>ชื่อร้าน (English)</label><input type="text" id="g-shopNameEn"></div>
-        </div>
-        <div class="form-group"><label>คำอธิบายสั้น (แสดงใต้ชื่อร้านในหน้าแรก)</label><input type="text" id="g-tagline"></div>
-        <div class="form-group"><label>ปีประสบการณ์ (แสดงใน Hero เช่น "30+")</label><input type="text" id="g-established"></div>
-      </div>
+<!-- GENERAL -->
+<div class="pg on" id="pg-general">
+  <div class="pg-title">ข้อมูลร้าน</div><div class="pg-sub">ชื่อร้านและข้อมูลพื้นฐาน</div>
+  <div class="card">
+    <div class="card-hd"><i class="ti ti-building-store"></i>ข้อมูลหลัก</div>
+    <div class="row2">
+      <div class="fg"><label>ชื่อร้าน (ภาษาไทย)</label><input type="text" id="g-shopName"></div>
+      <div class="fg"><label>ชื่อร้าน (English)</label><input type="text" id="g-shopNameEn"></div>
     </div>
-
-    <!-- COLORS -->
-    <div class="page" id="page-colors">
-      <div class="page-title">สีและดีไซน์</div>
-      <div class="page-sub">เปลี่ยนสีหลักของเว็บได้เลย</div>
-      <div class="card">
-        <div class="card-title"><i class="ti ti-palette"></i> สีหลัก</div>
-        <div class="form-row">
-          <div class="form-group">
-            <label>สีหลัก (Primary) — ปุ่ม, badge, accent</label>
-            <div class="color-row">
-              <input type="color" id="c-primary">
-              <input type="text" id="c-primary-hex" style="width:120px">
-            </div>
-          </div>
-          <div class="form-group">
-            <label>สีเข้ม (Dark) — Navbar, Hero, Footer</label>
-            <div class="color-row">
-              <input type="color" id="c-dark">
-              <input type="text" id="c-dark-hex" style="width:120px">
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- PROMOS -->
-    <div class="page" id="page-promos">
-      <div class="page-title">Banner โปรโมชั่น</div>
-      <div class="page-sub">แก้ข้อความใน banner หน้าหลัก</div>
-      <div class="card">
-        <div class="card-title"><i class="ti ti-speakerphone"></i> Banner (มี 2 อัน)</div>
-        <div class="item-list" id="promoList"></div>
-      </div>
-    </div>
-
-    <!-- PRODUCTS -->
-    <div class="page" id="page-products">
-      <div class="page-title">สินค้าแนะนำ</div>
-      <div class="page-sub">เพิ่ม ลบ หรือแก้ไขสินค้าและราคา</div>
-      <div class="card">
-        <div class="card-title"><i class="ti ti-package"></i> รายการสินค้า</div>
-        <div class="item-list" id="productList"></div>
-        <button class="btn-add" onclick="addProduct()"><i class="ti ti-plus"></i> เพิ่มสินค้า</button>
-      </div>
-    </div>
-
-    <!-- CATEGORIES -->
-    <div class="page" id="page-categories">
-      <div class="page-title">หมวดหมู่สินค้า</div>
-      <div class="page-sub">แก้ชื่อหมวดหมู่ที่แสดงในหน้าหลัก</div>
-      <div class="card">
-        <div class="card-title"><i class="ti ti-category"></i> หมวดหมู่</div>
-        <div class="item-list" id="catList"></div>
-      </div>
-    </div>
-
-    <!-- FAQ -->
-    <div class="page" id="page-faq">
-      <div class="page-title">คำถามที่พบบ่อย (FAQ)</div>
-      <div class="page-sub">แก้ไขหรือเพิ่มคำถาม-คำตอบ ช่วย SEO มาก</div>
-      <div class="card">
-        <div class="card-title"><i class="ti ti-help-circle"></i> FAQ</div>
-        <div class="item-list" id="faqList"></div>
-        <button class="btn-add" onclick="addFaq()"><i class="ti ti-plus"></i> เพิ่มคำถาม</button>
-      </div>
-    </div>
-
-    <!-- BRANCH 1 -->
-    <div class="page" id="page-branch1">
-      <div class="page-title">สาขาในเมือง</div>
-      <div class="page-sub">ข้อมูลติดต่อและที่อยู่สาขาที่ 1</div>
-      <div class="card">
-        <div class="card-title"><i class="ti ti-map-pin"></i> ข้อมูลสาขาในเมือง</div>
-        <div class="form-row">
-          <div class="form-group"><label>ชื่อสาขา (ไทย)</label><input type="text" id="b0-name"></div>
-          <div class="form-group"><label>ชื่อสาขา (English)</label><input type="text" id="b0-nameEn"></div>
-        </div>
-        <div class="form-group"><label>ที่อยู่</label><textarea id="b0-address" rows="2"></textarea></div>
-        <div class="form-row">
-          <div class="form-group"><label>เบอร์โทรศัพท์</label><input type="tel" id="b0-phone"></div>
-          <div class="form-group"><label>เวลาทำการ</label><input type="text" id="b0-hours"></div>
-        </div>
-        <div class="form-group"><label>Google Maps URL</label><input type="url" id="b0-mapUrl"></div>
-        <div class="form-row">
-          <div class="form-group"><label>Line URL</label><input type="url" id="b0-lineUrl"></div>
-          <div class="form-group"><label>Facebook URL</label><input type="url" id="b0-fbUrl"></div>
-        </div>
-      </div>
-    </div>
-
-    <!-- BRANCH 2 -->
-    <div class="page" id="page-branch2">
-      <div class="page-title">สาขาถนนเอเชีย</div>
-      <div class="page-sub">ข้อมูลติดต่อและที่อยู่สาขาที่ 2</div>
-      <div class="card">
-        <div class="card-title"><i class="ti ti-map-pin"></i> ข้อมูลสาขาถนนเอเชีย</div>
-        <div class="form-row">
-          <div class="form-group"><label>ชื่อสาขา (ไทย)</label><input type="text" id="b1-name"></div>
-          <div class="form-group"><label>ชื่อสาขา (English)</label><input type="text" id="b1-nameEn"></div>
-        </div>
-        <div class="form-group"><label>ที่อยู่</label><textarea id="b1-address" rows="2"></textarea></div>
-        <div class="form-row">
-          <div class="form-group"><label>เบอร์โทรศัพท์</label><input type="tel" id="b1-phone"></div>
-          <div class="form-group"><label>เวลาทำการ</label><input type="text" id="b1-hours"></div>
-        </div>
-        <div class="form-group"><label>Google Maps URL</label><input type="url" id="b1-mapUrl"></div>
-        <div class="form-row">
-          <div class="form-group"><label>Line URL</label><input type="url" id="b1-lineUrl"></div>
-          <div class="form-group"><label>Facebook URL</label><input type="url" id="b1-fbUrl"></div>
-        </div>
-      </div>
-    </div>
-
-    <!-- PUBLISH -->
-    <div class="page" id="page-publish">
-      <div class="page-title">อัปโหลดขึ้นเว็บ</div>
-      <div class="page-sub">หลังแก้ไขเสร็จ ทำตามขั้นตอนนี้เพื่ออัปเดตเว็บไซต์</div>
-      <div class="card">
-        <div class="card-title"><i class="ti ti-upload"></i> วิธีอัปเดตเว็บหลังแก้ไข</div>
-        <div class="export-box">
-          <div class="export-title">ขั้นตอนง่ายๆ 3 ขั้น</div>
-          <div class="export-steps">
-            <div class="export-step"><div class="num">1</div><span>กดปุ่ม "บันทึก & ดาวน์โหลด" มุมบนขวา — จะได้ไฟล์ <strong>site-config.js</strong></span></div>
-            <div class="export-step"><div class="num">2</div><span>ไปที่ github.com/phatthalungsittichai/phatthalungsittichai.github.io → กด <strong>site-config.js</strong> → กดดินสอ ✏️ → วางโค้ดที่ copy มา → Commit</span></div>
-            <div class="export-step"><div class="num">3</div><span>รอ 1-2 นาที เว็บจะอัปเดตอัตโนมัติ</span></div>
-          </div>
-          <button class="btn-export" onclick="saveAndExport()"><i class="ti ti-download"></i> บันทึก & ดาวน์โหลด site-config.js</button>
-        </div>
-      </div>
-    </div>
-
+    <div class="fg"><label>คำอธิบายสั้น (แสดงใต้ชื่อใน navbar)</label><input type="text" id="g-tagline"></div>
+    <div class="fg"><label>ปีประสบการณ์ เช่น "30+"</label><input type="text" id="g-established" style="max-width:120px"></div>
   </div>
 </div>
 
-<!-- TOAST -->
-<div class="toast" id="toast">✅ บันทึกสำเร็จ! ดาวน์โหลดไฟล์แล้ว</div>
+<!-- COLORS -->
+<div class="pg" id="pg-colors">
+  <div class="pg-title">สีทั้งเว็บ</div><div class="pg-sub">เปลี่ยนสีหลักได้ทันที</div>
+  <div class="card">
+    <div class="card-hd"><i class="ti ti-palette"></i>ชุดสี</div>
+    <div class="row2">
+      <div class="fg">
+        <label>สีหลัก (ปุ่ม, badge, accent)</label>
+        <div class="color-wrap"><input type="color" id="c-primary"><input type="text" id="c-primary-t" maxlength="7"></div>
+      </div>
+      <div class="fg">
+        <label>สีเข้ม (Navbar, Hero, Footer)</label>
+        <div class="color-wrap"><input type="color" id="c-dark"><input type="text" id="c-dark-t" maxlength="7"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- OVERLAY -->
+<div class="pg" id="pg-overlay">
+  <div class="pg-title">หน้าเลือกสาขา (Branch Selector)</div><div class="pg-sub">Overlay ที่แสดงตอนเปิดเว็บ</div>
+  <div class="card">
+    <div class="card-hd"><i class="ti ti-layers-intersect"></i>ข้อความใน Overlay</div>
+    <div class="fg"><label>ชื่อแบรนด์ด้านบน (ตัวพิมพ์เล็ก)</label><input type="text" id="ov-eyebrow"></div>
+    <div class="fg"><label>หัวข้อหลัก</label><input type="text" id="ov-headline"></div>
+    <div class="fg"><label>คำอธิบาย</label><input type="text" id="ov-sub"></div>
+    <div class="fg"><label>ข้อความปุ่ม "เลือกสาขานี้"</label><input type="text" id="ov-btnText"></div>
+  </div>
+</div>
+
+<!-- BRANCH 0 -->
+<div class="pg" id="pg-b0">
+  <div class="pg-title">สาขาในเมือง</div><div class="pg-sub">ข้อมูลทั้งหมดของสาขาที่ 1</div>
+  <div class="card">
+    <div class="card-hd"><i class="ti ti-map-pin"></i>ข้อมูลสาขา</div>
+    <div class="fg"><label>Icon (Emoji) — แสดงบน Branch Selector</label>
+      <input type="text" id="b0-icon" style="max-width:100px;font-size:24px;text-align:center">
+      <div class="emoji-hint">💡 Mac: กด Control+Command+Space เพื่อเลือก emoji</div>
+    </div>
+    <div class="row2">
+      <div class="fg"><label>Badge เช่น "สาขาที่ 1"</label><input type="text" id="b0-badge"></div>
+      <div class="fg"><label>ชื่อสาขา (ไทย)</label><input type="text" id="b0-name"></div>
+    </div>
+    <div class="row2">
+      <div class="fg"><label>ชื่อสาขา (English)</label><input type="text" id="b0-nameEn"></div>
+      <div class="fg"><label>เบอร์โทรศัพท์</label><input type="tel" id="b0-phone"></div>
+    </div>
+    <div class="fg"><label>ที่อยู่</label><textarea id="b0-address" rows="2"></textarea></div>
+    <div class="fg"><label>เวลาทำการ</label><input type="text" id="b0-hours"></div>
+    <div class="fg"><label>Google Maps URL</label><input type="url" id="b0-mapUrl"></div>
+    <div class="row2">
+      <div class="fg"><label>Line URL</label><input type="url" id="b0-lineUrl"></div>
+      <div class="fg"><label>Facebook URL</label><input type="url" id="b0-fbUrl"></div>
+    </div>
+  </div>
+</div>
+
+<!-- BRANCH 1 -->
+<div class="pg" id="pg-b1">
+  <div class="pg-title">สาขาถนนเอเชีย</div><div class="pg-sub">ข้อมูลทั้งหมดของสาขาที่ 2</div>
+  <div class="card">
+    <div class="card-hd"><i class="ti ti-map-pin"></i>ข้อมูลสาขา</div>
+    <div class="fg"><label>Icon (Emoji) — แสดงบน Branch Selector</label>
+      <input type="text" id="b1-icon" style="max-width:100px;font-size:24px;text-align:center">
+      <div class="emoji-hint">💡 Mac: กด Control+Command+Space เพื่อเลือก emoji</div>
+    </div>
+    <div class="row2">
+      <div class="fg"><label>Badge เช่น "สาขาที่ 2"</label><input type="text" id="b1-badge"></div>
+      <div class="fg"><label>ชื่อสาขา (ไทย)</label><input type="text" id="b1-name"></div>
+    </div>
+    <div class="row2">
+      <div class="fg"><label>ชื่อสาขา (English)</label><input type="text" id="b1-nameEn"></div>
+      <div class="fg"><label>เบอร์โทรศัพท์</label><input type="tel" id="b1-phone"></div>
+    </div>
+    <div class="fg"><label>ที่อยู่</label><textarea id="b1-address" rows="2"></textarea></div>
+    <div class="fg"><label>เวลาทำการ</label><input type="text" id="b1-hours"></div>
+    <div class="fg"><label>Google Maps URL</label><input type="url" id="b1-mapUrl"></div>
+    <div class="row2">
+      <div class="fg"><label>Line URL</label><input type="url" id="b1-lineUrl"></div>
+      <div class="fg"><label>Facebook URL</label><input type="url" id="b1-fbUrl"></div>
+    </div>
+  </div>
+</div>
+
+<!-- HERO -->
+<div class="pg" id="pg-hero">
+  <div class="pg-title">Hero Section</div><div class="pg-sub">ส่วนหัวหน้าเว็บ</div>
+  <div class="card">
+    <div class="card-hd"><i class="ti ti-home"></i>ข้อความ Hero</div>
+    <div class="fg"><label>ข้อความบน Badge (🏆 ...)</label><input type="text" id="h-eyebrow"></div>
+    <div class="fg"><label>Headline บรรทัดที่ 1</label><input type="text" id="h-line1"></div>
+    <div class="fg"><label>Headline บรรทัดที่ 2 (ใต้ SCG)</label><input type="text" id="h-line2"></div>
+    <div class="fg"><label>คำอธิบาย (ใต้ headline)</label><textarea id="h-desc" rows="2"></textarea></div>
+    <div class="row2">
+      <div class="fg"><label>ปุ่มหลัก (สีแดง)</label><input type="text" id="h-btn1"></div>
+      <div class="fg"><label>ปุ่มรอง (outline)</label><input type="text" id="h-btn2"></div>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-hd"><i class="ti ti-chart-bar"></i>Stats 3 ช่อง</div>
+    <div class="row3">
+      <div class="fg"><label>ตัวเลข 1</label><input type="text" id="h-s1n"><label style="margin-top:8px">ชื่อ 1</label><input type="text" id="h-s1l"></div>
+      <div class="fg"><label>ตัวเลข 2</label><input type="text" id="h-s2n"><label style="margin-top:8px">ชื่อ 2</label><input type="text" id="h-s2l"></div>
+      <div class="fg"><label>ตัวเลข 3</label><input type="text" id="h-s3n"><label style="margin-top:8px">ชื่อ 3</label><input type="text" id="h-s3l"></div>
+    </div>
+  </div>
+</div>
+
+<!-- CATEGORIES -->
+<div class="pg" id="pg-cats">
+  <div class="pg-title">หมวดหมู่สินค้า</div><div class="pg-sub">8 หมวดหมู่ในหน้าหลัก</div>
+  <div class="card">
+    <div class="card-hd"><i class="ti ti-category"></i>หมวดหมู่</div>
+    <div class="item-list" id="cat-list"></div>
+  </div>
+</div>
+
+<!-- PROMOS -->
+<div class="pg" id="pg-promos">
+  <div class="pg-title">Banner โปรโมชั่น</div><div class="pg-sub">2 banner ใต้หมวดหมู่สินค้า</div>
+  <div class="card">
+    <div class="card-hd"><i class="ti ti-speakerphone"></i>Banner</div>
+    <div class="item-list" id="promo-list"></div>
+  </div>
+</div>
+
+<!-- PRODUCTS -->
+<div class="pg" id="pg-products">
+  <div class="pg-title">สินค้าแนะนำ</div><div class="pg-sub">เพิ่ม ลบ แก้ไขสินค้าและราคาได้เลย</div>
+  <div class="card">
+    <div class="card-hd"><i class="ti ti-package"></i>รายการสินค้า</div>
+    <div class="item-list" id="prod-list"></div>
+    <button class="btn-add" onclick="addProd()"><i class="ti ti-plus"></i>เพิ่มสินค้า</button>
+  </div>
+</div>
+
+<!-- WHY -->
+<div class="pg" id="pg-why">
+  <div class="pg-title">Why Us Section</div><div class="pg-sub">3 จุดเด่นของร้าน</div>
+  <div class="card">
+    <div class="card-hd"><i class="ti ti-star"></i>หัวข้อ</div>
+    <div class="row2">
+      <div class="fg"><label>หัวข้อหลัก (ไทย)</label><input type="text" id="w-title"></div>
+      <div class="fg"><label>หัวข้อรอง (English)</label><input type="text" id="w-sub"></div>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-hd"><i class="ti ti-star"></i>3 จุดเด่น</div>
+    <div class="item-list" id="why-list"></div>
+  </div>
+</div>
+
+<!-- FAQ -->
+<div class="pg" id="pg-faq">
+  <div class="pg-title">FAQ</div><div class="pg-sub">คำถาม-คำตอบ ช่วย SEO มาก</div>
+  <div class="card">
+    <div class="card-hd"><i class="ti ti-help-circle"></i>คำถาม-คำตอบ</div>
+    <div class="item-list" id="faq-list"></div>
+    <button class="btn-add" onclick="addFaq()"><i class="ti ti-plus"></i>เพิ่มคำถาม</button>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<div class="pg" id="pg-footer">
+  <div class="pg-title">Footer</div><div class="pg-sub">ข้อความด้านล่างสุดของเว็บ</div>
+  <div class="card">
+    <div class="card-hd"><i class="ti ti-layout-bottombar"></i>ข้อความ Footer</div>
+    <div class="fg"><label>ข้อความ Copyright</label><input type="text" id="ft-copy"></div>
+    <div class="fg"><label>ข้อความ Badge มุมขวา</label><input type="text" id="ft-badge"></div>
+    <div class="fg"><label>คำอธิบายร้านใน Footer</label><textarea id="ft-desc" rows="3"></textarea></div>
+  </div>
+</div>
+
+<!-- PUBLISH -->
+<div class="pg" id="pg-publish">
+  <div class="pg-title">อัปโหลดขึ้นเว็บ</div><div class="pg-sub">หลังแก้ไขเสร็จ ทำตาม 3 ขั้นนี้</div>
+  <div class="card">
+    <div class="pub-box">
+      <div class="pub-title">วิธีอัปเดตเว็บ — ง่ายมาก 3 ขั้น</div>
+      <div class="pub-sub">กดบันทึกด้านล่าง → เอาไฟล์ขึ้น GitHub → เว็บอัปเดตใน 2 นาที</div>
+      <div class="pub-steps">
+        <div class="ps"><div class="n">1</div><span>กดปุ่มด้านล่าง → ได้ไฟล์ <code>site-config.js</code></span></div>
+        <div class="ps"><div class="n">2</div><span>ไปที่ GitHub → คลิกไฟล์ <code>site-config.js</code> → กดดินสอ ✏️ → ลบทั้งหมด → วาง (Paste) โค้ดใหม่ → <strong>Commit changes</strong></span></div>
+        <div class="ps"><div class="n">3</div><span>รอ 1-2 นาที เว็บอัปเดตอัตโนมัติ ✅</span></div>
+      </div>
+      <button class="btn-export" onclick="saveAll()"><i class="ti ti-download"></i>บันทึก & ดาวน์โหลด site-config.js</button>
+    </div>
+  </div>
+</div>
+
+</div><!-- end main -->
+</div><!-- end wrap -->
+
+<div class="toast" id="toast">✅ ดาวน์โหลด site-config.js แล้ว! นำไปอัปโหลดใน GitHub</div>
 
 <script src="site-config.js"></script>
 <script>
 var C = JSON.parse(JSON.stringify(SITE_CONFIG));
 
-// ── LOAD ALL FIELDS ────────────────────────────────────
+// extend config with new fields if missing
+if(!C.overlay) C.overlay = {eyebrow:'PHATTHALUNG SITTHICHAI',headline:'กรุณาเลือกสาขา',sub:'เพื่อแสดงสินค้าและราคาที่ถูกต้องสำหรับสาขาของคุณ',btnText:'เลือกสาขานี้'};
+if(!C.hero) C.hero = {eyebrow:'ไว้วางใจกว่า 30+ ปี · Trusted for 30+ Years',line1:'วัสดุก่อสร้างคุณภาพ SCG',line2:'ครบทุกประเภท',desc:'2 สาขา อ.เมืองพัทลุง & ถนนเอเชีย · ตัวแทนจำหน่ายโดยตรง ราคายุติธรรม จัดส่งทั่วพัทลุง',btn1:'เลือกสาขาและดูสินค้า →',btn2:'ข้อมูลสาขา',s1n:'2',s1l:'สาขา\nBranches',s2n:'30+',s2l:'ปีประสบการณ์\nYears',s3n:'SCG',s3l:'ตัวแทนโดยตรง\nDirect Dealer'};
+if(!C.why) C.why = {title:'ทำไมต้องเลือกเรา · Why Choose Us',sub:'มั่นใจได้ทุกด้าน · Trusted on every front',items:[{icon:'🏅',label:'ตัวแทน SCG โดยตรง',labelEn:'SCG Direct Dealer'},{icon:'🚚',label:'จัดส่งทั่วพัทลุง',labelEn:'Province-wide Delivery'},{icon:'💬',label:'ทีมงานให้คำปรึกษา',labelEn:'Expert Consultation'}]};
+if(!C.footer) C.footer = {copy:'© 2567–2568 พัทลุงสิทธิชัยวัสดุก่อสร้าง · All rights reserved',badge:'SCG Authorized Dealer',desc:'ตัวแทนจำหน่ายผลิตภัณฑ์ SCG โดยตรง\nประสบการณ์กว่า 30 ปีในจังหวัดพัทลุง\nAuthorized SCG Dealer'};
+
+function gv(id){ return document.getElementById(id); }
+function sv(id,val){ var el=gv(id); if(el) el.value=val||''; }
+
 function loadAll(){
   // General
-  v('g-shopName', C.shopName);
-  v('g-shopNameEn', C.shopNameEn);
-  v('g-tagline', C.tagline);
-  v('g-established', C.established);
+  sv('g-shopName',C.shopName); sv('g-shopNameEn',C.shopNameEn);
+  sv('g-tagline',C.tagline); sv('g-established',C.established);
   // Colors
-  v('c-primary', C.colors.primary);
-  v('c-primary-hex', C.colors.primary);
-  v('c-dark', C.colors.dark);
-  v('c-dark-hex', C.colors.dark);
+  sv('c-primary',C.colors.primary); sv('c-primary-t',C.colors.primary);
+  sv('c-dark',C.colors.dark); sv('c-dark-t',C.colors.dark);
+  // Overlay
+  sv('ov-eyebrow',C.overlay.eyebrow); sv('ov-headline',C.overlay.headline);
+  sv('ov-sub',C.overlay.sub); sv('ov-btnText',C.overlay.btnText);
   // Branches
   [0,1].forEach(function(i){
-    var b = C.branches[i];
-    v('b'+i+'-name', b.name);
-    v('b'+i+'-nameEn', b.nameEn);
-    v('b'+i+'-address', b.address);
-    v('b'+i+'-phone', b.phone);
-    v('b'+i+'-hours', b.hours);
-    v('b'+i+'-mapUrl', b.mapUrl);
-    v('b'+i+'-lineUrl', b.lineUrl);
-    v('b'+i+'-fbUrl', b.fbUrl);
+    var b=C.branches[i];
+    sv('b'+i+'-icon',b.icon); sv('b'+i+'-badge',b.badge);
+    sv('b'+i+'-name',b.name); sv('b'+i+'-nameEn',b.nameEn);
+    sv('b'+i+'-phone',b.phone); sv('b'+i+'-address',b.address);
+    sv('b'+i+'-hours',b.hours); sv('b'+i+'-mapUrl',b.mapUrl);
+    sv('b'+i+'-lineUrl',b.lineUrl); sv('b'+i+'-fbUrl',b.fbUrl);
   });
-  // Promos
-  renderPromos();
-  // Products
-  renderProducts();
-  // Categories
-  renderCats();
-  // FAQ
-  renderFaqs();
-}
-
-function v(id, val){
-  var el = document.getElementById(id);
-  if(el) el.value = val || '';
+  // Hero
+  var h=C.hero;
+  sv('h-eyebrow',h.eyebrow); sv('h-line1',h.line1); sv('h-line2',h.line2);
+  sv('h-desc',h.desc); sv('h-btn1',h.btn1); sv('h-btn2',h.btn2);
+  sv('h-s1n',h.s1n); sv('h-s1l',h.s1l); sv('h-s2n',h.s2n);
+  sv('h-s2l',h.s2l); sv('h-s3n',h.s3n); sv('h-s3l',h.s3l);
+  // Why
+  sv('w-title',C.why.title); sv('w-sub',C.why.sub);
+  // Footer
+  sv('ft-copy',C.footer.copy); sv('ft-badge',C.footer.badge); sv('ft-desc',C.footer.desc);
+  // Dynamic lists
+  renderCats(); renderPromos(); renderProds(); renderWhy(); renderFaqs();
 }
 
 // Color sync
-['primary','dark'].forEach(function(key){
-  var picker = document.getElementById('c-'+key);
-  var hex = document.getElementById('c-'+key+'-hex');
-  if(picker) picker.addEventListener('input', function(){ hex.value = this.value; });
-  if(hex) hex.addEventListener('input', function(){ if(/^#[0-9A-Fa-f]{6}$/.test(this.value)) picker.value = this.value; });
+['primary','dark'].forEach(function(k){
+  var p=gv('c-'+k), t=gv('c-'+k+'-t');
+  if(p) p.addEventListener('input',function(){ t.value=this.value; });
+  if(t) t.addEventListener('input',function(){ if(/^#[0-9A-Fa-f]{6}$/.test(this.value)) p.value=this.value; });
 });
 
-// ── PROMOS ─────────────────────────────────────────────
-function renderPromos(){
-  document.getElementById('promoList').innerHTML = C.promos.map(function(p,i){
-    return '<div class="item-card">'+
-      '<div class="item-header"><div class="item-label">Banner '+(i+1)+(i===0?' (สีแดง)':' (สีเข้ม)')+'</div></div>'+
-      '<div class="form-group"><label>หัวข้อ (ใส่ \\n เพื่อขึ้นบรรทัดใหม่)</label>'+
-      '<input type="text" id="promo-tag-'+i+'" value="'+p.tag+'"></div>'+
-      '<div class="form-group"><label>ข้อความหลัก</label>'+
-      '<textarea id="promo-title-'+i+'" rows="2">'+p.title+'</textarea></div>'+
-    '</div>';
-  }).join('');
-}
-
-// ── PRODUCTS ───────────────────────────────────────────
-function renderProducts(){
-  document.getElementById('productList').innerHTML = C.products.map(function(p,i){
-    return '<div class="item-card" id="prod-'+i+'">'+
-      '<div class="item-header"><div class="item-label">สินค้า '+(i+1)+'</div>'+
-      '<div class="item-actions"><button class="btn-del" onclick="delProduct('+i+')">ลบ</button></div></div>'+
-      '<div class="form-row">'+
-      '<div class="form-group"><label>ไอคอน (Emoji)</label><input type="text" id="p-icon-'+i+'" value="'+p.icon+'" style="width:80px"></div>'+
-      '<div class="form-group"><label>แบรนด์</label><input type="text" id="p-brand-'+i+'" value="'+p.brand+'"></div>'+
-      '</div>'+
-      '<div class="form-row">'+
-      '<div class="form-group"><label>ชื่อสินค้า (ไทย)</label><input type="text" id="p-name-'+i+'" value="'+p.name+'"></div>'+
-      '<div class="form-group"><label>ชื่อสินค้า (English)</label><input type="text" id="p-nameEn-'+i+'" value="'+p.nameEn+'"></div>'+
-      '</div>'+
-      '<div class="form-row">'+
-      '<div class="form-group"><label>ราคา (฿)</label><input type="number" id="p-price-'+i+'" value="'+p.price+'"></div>'+
-      '<div class="form-group"><label>หน่วย เช่น ถุง, แผ่น</label><input type="text" id="p-unit-'+i+'" value="'+p.unit+'"></div>'+
-      '</div>'+
-    '</div>';
-  }).join('');
-}
-function addProduct(){
-  C.products.push({icon:'📦',brand:'',name:'สินค้าใหม่',nameEn:'New Product',price:'0',unit:'ชิ้น'});
-  renderProducts();
-}
-function delProduct(i){ C.products.splice(i,1); renderProducts(); }
-
-// ── CATEGORIES ─────────────────────────────────────────
+// Categories
 function renderCats(){
-  document.getElementById('catList').innerHTML = C.categories.map(function(c,i){
-    return '<div class="item-card">'+
-      '<div class="form-row">'+
-      '<div class="form-group"><label>ไอคอน</label><input type="text" id="cat-icon-'+i+'" value="'+c.icon+'" style="width:80px"></div>'+
-      '<div class="form-group"><label>ชื่อ (ไทย)</label><input type="text" id="cat-name-'+i+'" value="'+c.name+'"></div>'+
-      '<div class="form-group"><label>ชื่อ (English)</label><input type="text" id="cat-nameEn-'+i+'" value="'+c.nameEn+'"></div>'+
+  gv('cat-list').innerHTML=C.categories.map(function(c,i){
+    return '<div class="ic">'+
+      '<div class="ic-hd"><div class="ic-label">หมวดหมู่ '+(i+1)+'</div></div>'+
+      '<div class="row3">'+
+        '<div class="fg"><label>Icon (Emoji)</label><input type="text" id="ci-'+i+'" value="'+esc(c.icon)+'" style="font-size:22px;text-align:center;max-width:70px"></div>'+
+        '<div class="fg"><label>ชื่อ (ไทย)</label><input type="text" id="cn-'+i+'" value="'+esc(c.name)+'"></div>'+
+        '<div class="fg"><label>ชื่อ (English)</label><input type="text" id="ce-'+i+'" value="'+esc(c.nameEn)+'"></div>'+
+      '</div>'+
+      '<div class="fg"><label>สีพื้นหลัง Icon</label><div class="color-wrap"><input type="color" id="cb-'+i+'" value="'+c.bg+'"><input type="text" id="cbt-'+i+'" value="'+c.bg+'" style="max-width:100px"></div></div>'+
+    '</div>';
+  }).join('');
+  // color sync for cats
+  C.categories.forEach(function(_,i){
+    var p=gv('cb-'+i),t=gv('cbt-'+i);
+    if(p&&t){ p.addEventListener('input',function(){t.value=this.value;}); t.addEventListener('input',function(){if(/^#[0-9A-Fa-f]{6}$/.test(this.value))p.value=this.value;}); }
+  });
+}
+
+// Promos
+function renderPromos(){
+  gv('promo-list').innerHTML=C.promos.map(function(p,i){
+    return '<div class="ic">'+
+      '<div class="ic-hd"><div class="ic-label">Banner '+(i+1)+(i===0?' (สีแดง)':' (สีเข้ม)')+'</div></div>'+
+      '<div class="row2">'+
+        '<div class="fg"><label>Tag บนสุด</label><input type="text" id="pt-'+i+'" value="'+esc(p.tag)+'"></div>'+
+        '<div class="fg"><label>สี</label><select id="pc-'+i+'"><option value="red"'+(p.color==='red'?' selected':'')+'>แดง</option><option value="dark"'+(p.color==='dark'?' selected':'')+'>เข้ม</option></select></div>'+
+      '</div>'+
+      '<div class="fg"><label>ข้อความหลัก (ใช้ \\n ขึ้นบรรทัด)</label><textarea id="pm-'+i+'" rows="2">'+esc(p.title)+'</textarea></div>'+
+    '</div>';
+  }).join('');
+}
+
+// Products
+function renderProds(){
+  gv('prod-list').innerHTML=C.products.map(function(p,i){
+    var bc=p.branches==='both'?'#15803d':p.branches==='city'?'#1d4ed8':'#c2410c';
+    var bl=p.branches==='both'?'🌐 ทั้ง 2 สาขา':p.branches==='city'?'🏪 สาขาในเมือง':'🏬 สาขาถนนเอเชีย';
+    return '<div class="ic" id="pr-'+i+'" style="border-left:3px solid '+bc+'">'+
+      '<div class="ic-hd">'+
+        '<div class="ic-label">สินค้า '+(i+1)+' &nbsp;<span style="font-size:11px;color:'+bc+';font-weight:600;">'+bl+'</span></div>'+
+        '<div class="ic-acts">'+
+          '<button class="btn-up" onclick="moveProd('+i+',-1)">↑</button>'+
+          '<button class="btn-dn" onclick="moveProd('+i+',1)">↓</button>'+
+          '<button class="btn-del" onclick="delProd('+i+')">ลบ</button>'+
+        '</div>'+
+      '</div>'+
+      '<div class="row3">'+
+        '<div class="fg"><label>Icon (Emoji)</label><input type="text" id="pi-'+i+'" value="'+esc(p.icon)+'" style="font-size:22px;text-align:center;max-width:70px"></div>'+
+        '<div class="fg"><label>แบรนด์</label><input type="text" id="pb-'+i+'" value="'+esc(p.brand)+'"></div>'+
+        '<div class="fg"><label>ราคา (฿)</label><input type="number" id="pp-'+i+'" value="'+p.price+'"></div>'+
+      '</div>'+
+      '<div class="row3">'+
+        '<div class="fg"><label>ชื่อ (ไทย)</label><input type="text" id="pn-'+i+'" value="'+esc(p.name)+'"></div>'+
+        '<div class="fg"><label>ชื่อ (English)</label><input type="text" id="pe-'+i+'" value="'+esc(p.nameEn)+'"></div>'+
+        '<div class="fg"><label>หน่วย เช่น ถุง</label><input type="text" id="pu-'+i+'" value="'+esc(p.unit)+'"></div>'+
+      '</div>'+
+      '<div class="fg"><label>แสดงในสาขาไหน?</label>'+
+        '<select id="pBr-'+i+'">'+
+          '<option value="both"'+(p.branches==="both"?" selected":"")+'>🌐 ทั้ง 2 สาขา</option>'+
+          '<option value="city"'+(p.branches==="city"?" selected":"")+'>🏪 สาขาในเมืองเท่านั้น</option>'+
+          '<option value="asia"'+(p.branches==="asia"?" selected":"")+'>🏬 สาขาถนนเอเชียเท่านั้น</option>'+
+        '</select>'+
+      '</div>'+
+    '</div>';
+  }).join('');
+}
+function addProd(){ C.products.push({icon:'📦',brand:'',name:'สินค้าใหม่',nameEn:'New Product',price:'0',unit:'ชิ้น',branches:'both'}); renderProds(); }
+function delProd(i){ C.products.splice(i,1); renderProds(); }
+function moveProd(i,d){ var j=i+d; if(j<0||j>=C.products.length) return; collectProds(); var t=C.products[i]; C.products[i]=C.products[j]; C.products[j]=t; renderProds(); }
+
+// Why
+function renderWhy(){
+  gv('why-list').innerHTML=C.why.items.map(function(w,i){
+    return '<div class="ic">'+
+      '<div class="ic-hd"><div class="ic-label">จุดเด่นที่ '+(i+1)+'</div></div>'+
+      '<div class="row3">'+
+        '<div class="fg"><label>Icon (Emoji)</label><input type="text" id="wi-'+i+'" value="'+esc(w.icon)+'" style="font-size:22px;text-align:center;max-width:70px"></div>'+
+        '<div class="fg"><label>ข้อความ (ไทย)</label><input type="text" id="wl-'+i+'" value="'+esc(w.label)+'"></div>'+
+        '<div class="fg"><label>ข้อความ (English)</label><input type="text" id="we-'+i+'" value="'+esc(w.labelEn)+'"></div>'+
       '</div>'+
     '</div>';
   }).join('');
 }
 
-// ── FAQ ────────────────────────────────────────────────
+// FAQ
 function renderFaqs(){
-  document.getElementById('faqList').innerHTML = C.faqs.map(function(f,i){
-    return '<div class="item-card">'+
-      '<div class="item-header"><div class="item-label">คำถามที่ '+(i+1)+'</div>'+
-      '<div class="item-actions"><button class="btn-del" onclick="delFaq('+i+')">ลบ</button></div></div>'+
-      '<div class="form-group"><label>คำถาม</label><input type="text" id="faq-q-'+i+'" value="'+f.q.replace(/"/g,'&quot;')+'"></div>'+
-      '<div class="form-group"><label>คำตอบ</label><textarea id="faq-a-'+i+'" rows="2">'+f.a+'</textarea></div>'+
+  gv('faq-list').innerHTML=C.faqs.map(function(f,i){
+    return '<div class="ic">'+
+      '<div class="ic-hd"><div class="ic-label">คำถามที่ '+(i+1)+'</div>'+
+        '<div class="ic-acts"><button class="btn-del" onclick="delFaq('+i+')">ลบ</button></div>'+
+      '</div>'+
+      '<div class="fg"><label>คำถาม</label><input type="text" id="fq-'+i+'" value="'+esc(f.q)+'"></div>'+
+      '<div class="fg"><label>คำตอบ</label><textarea id="fa-'+i+'" rows="2">'+esc(f.a)+'</textarea></div>'+
     '</div>';
   }).join('');
 }
 function addFaq(){ C.faqs.push({q:'คำถามใหม่',a:'คำตอบ'}); renderFaqs(); }
 function delFaq(i){ C.faqs.splice(i,1); renderFaqs(); }
 
-// ── COLLECT & BUILD CONFIG ──────────────────────────────
+// COLLECT
+function collectProds(){
+  C.products.forEach(function(p,i){
+    p.icon=gv('pi-'+i)?.value||p.icon; p.brand=gv('pb-'+i)?.value||'';
+    p.name=gv('pn-'+i)?.value||''; p.nameEn=gv('pe-'+i)?.value||'';
+    p.price=gv('pp-'+i)?.value||'0'; p.unit=gv('pu-'+i)?.value||'';
+    p.branches=gv('pBr-'+i)?.value||'both';
+  });
+}
 function collectAll(){
-  C.shopName = document.getElementById('g-shopName').value;
-  C.shopNameEn = document.getElementById('g-shopNameEn').value;
-  C.tagline = document.getElementById('g-tagline').value;
-  C.established = document.getElementById('g-established').value;
-  C.colors.primary = document.getElementById('c-primary').value;
-  C.colors.dark = document.getElementById('c-dark').value;
+  C.shopName=gv('g-shopName').value; C.shopNameEn=gv('g-shopNameEn').value;
+  C.tagline=gv('g-tagline').value; C.established=gv('g-established').value;
+  C.colors.primary=gv('c-primary').value; C.colors.dark=gv('c-dark').value;
+  C.overlay={eyebrow:gv('ov-eyebrow').value,headline:gv('ov-headline').value,sub:gv('ov-sub').value,btnText:gv('ov-btnText').value};
   [0,1].forEach(function(i){
-    C.branches[i].name = document.getElementById('b'+i+'-name').value;
-    C.branches[i].nameEn = document.getElementById('b'+i+'-nameEn').value;
-    C.branches[i].address = document.getElementById('b'+i+'-address').value;
-    C.branches[i].phone = document.getElementById('b'+i+'-phone').value;
-    C.branches[i].hours = document.getElementById('b'+i+'-hours').value;
-    C.branches[i].mapUrl = document.getElementById('b'+i+'-mapUrl').value;
-    C.branches[i].lineUrl = document.getElementById('b'+i+'-lineUrl').value;
-    C.branches[i].fbUrl = document.getElementById('b'+i+'-fbUrl').value;
+    C.branches[i].icon=gv('b'+i+'-icon').value; C.branches[i].badge=gv('b'+i+'-badge').value;
+    C.branches[i].name=gv('b'+i+'-name').value; C.branches[i].nameEn=gv('b'+i+'-nameEn').value;
+    C.branches[i].phone=gv('b'+i+'-phone').value; C.branches[i].address=gv('b'+i+'-address').value;
+    C.branches[i].hours=gv('b'+i+'-hours').value; C.branches[i].mapUrl=gv('b'+i+'-mapUrl').value;
+    C.branches[i].lineUrl=gv('b'+i+'-lineUrl').value; C.branches[i].fbUrl=gv('b'+i+'-fbUrl').value;
+  });
+  C.hero={eyebrow:gv('h-eyebrow').value,line1:gv('h-line1').value,line2:gv('h-line2').value,
+    desc:gv('h-desc').value,btn1:gv('h-btn1').value,btn2:gv('h-btn2').value,
+    s1n:gv('h-s1n').value,s1l:gv('h-s1l').value,s2n:gv('h-s2n').value,
+    s2l:gv('h-s2l').value,s3n:gv('h-s3n').value,s3l:gv('h-s3l').value};
+  C.categories.forEach(function(c,i){
+    c.icon=gv('ci-'+i)?.value||c.icon; c.name=gv('cn-'+i)?.value||'';
+    c.nameEn=gv('ce-'+i)?.value||''; c.bg=gv('cb-'+i)?.value||c.bg;
   });
   C.promos.forEach(function(p,i){
-    p.tag = document.getElementById('promo-tag-'+i).value;
-    p.title = document.getElementById('promo-title-'+i).value;
+    p.tag=gv('pt-'+i)?.value||''; p.color=gv('pc-'+i)?.value||'red'; p.title=gv('pm-'+i)?.value||'';
   });
-  C.products.forEach(function(p,i){
-    p.icon = document.getElementById('p-icon-'+i).value;
-    p.brand = document.getElementById('p-brand-'+i).value;
-    p.name = document.getElementById('p-name-'+i).value;
-    p.nameEn = document.getElementById('p-nameEn-'+i).value;
-    p.price = document.getElementById('p-price-'+i).value;
-    p.unit = document.getElementById('p-unit-'+i).value;
-  });
-  C.categories.forEach(function(c,i){
-    c.icon = document.getElementById('cat-icon-'+i).value;
-    c.name = document.getElementById('cat-name-'+i).value;
-    c.nameEn = document.getElementById('cat-nameEn-'+i).value;
-  });
-  C.faqs.forEach(function(f,i){
-    f.q = document.getElementById('faq-q-'+i).value;
-    f.a = document.getElementById('faq-a-'+i).value;
-  });
+  collectProds();
+  C.why={title:gv('w-title').value,sub:gv('w-sub').value,items:C.why.items.map(function(w,i){
+    return {icon:gv('wi-'+i)?.value||w.icon,label:gv('wl-'+i)?.value||'',labelEn:gv('we-'+i)?.value||''};
+  })};
+  C.faqs=C.faqs.map(function(f,i){ return {q:gv('fq-'+i)?.value||'',a:gv('fa-'+i)?.value||''}; });
+  C.footer={copy:gv('ft-copy').value,badge:gv('ft-badge').value,desc:gv('ft-desc').value};
 }
 
-function buildConfigJS(){
-  return '// ═══════════════════════════════════════════════════════\n'+
-    '//  SITE CONFIG — แก้ข้อมูลทั้งหมดได้ที่นี่\n'+
-    '// ═══════════════════════════════════════════════════════\n\n'+
-    'var SITE_CONFIG = ' + JSON.stringify(C, null, 2) + ';\n';
-}
-
-// ── SAVE & DOWNLOAD ─────────────────────────────────────
-function saveAndExport(){
+function saveAll(){
   collectAll();
-  var content = buildConfigJS();
-  var blob = new Blob([content], {type:'text/javascript'});
-  var url = URL.createObjectURL(blob);
-  var a = document.createElement('a');
-  a.href = url; a.download = 'site-config.js';
-  document.body.appendChild(a); a.click();
-  document.body.removeChild(a); URL.revokeObjectURL(url);
-  showToast();
+  var js='// ═══════════════════════════════════════════════════════\n//  SITE CONFIG — แก้ข้อมูลทั้งหมดได้ที่ admin.html\n// ═══════════════════════════════════════════════════════\n\nvar SITE_CONFIG = '+JSON.stringify(C,null,2)+';\n';
+  var b=new Blob([js],{type:'text/javascript'});
+  var u=URL.createObjectURL(b);
+  var a=document.createElement('a'); a.href=u; a.download='site-config.js';
+  document.body.appendChild(a); a.click(); document.body.removeChild(a); URL.revokeObjectURL(u);
+  var t=gv('toast'); t.classList.add('show'); setTimeout(function(){t.classList.remove('show');},3500);
 }
 
-function showToast(){
-  var t = document.getElementById('toast');
-  t.classList.add('show');
-  setTimeout(function(){ t.classList.remove('show'); }, 3000);
+function go(name,el){
+  document.querySelectorAll('.pg').forEach(function(p){p.classList.remove('on');});
+  document.querySelectorAll('.sb-item').forEach(function(s){s.classList.remove('on');});
+  gv('pg-'+name).classList.add('on'); el.classList.add('on');
 }
 
-// ── NAV ─────────────────────────────────────────────────
-function showPage(name, el){
-  document.querySelectorAll('.page').forEach(function(p){ p.classList.remove('active'); });
-  document.querySelectorAll('.sidebar-item').forEach(function(s){ s.classList.remove('active'); });
-  document.getElementById('page-'+name).classList.add('active');
-  el.classList.add('active');
-}
+function esc(s){ return (s||'').replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
 
-// ── INIT ────────────────────────────────────────────────
 loadAll();
 </script>
 </body>

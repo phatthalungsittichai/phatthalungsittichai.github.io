@@ -1,306 +1,266 @@
 <!DOCTYPE html>
 <html lang="th">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>พัทลุงสิทธิชัยวัสดุก่อสร้าง | ตัวแทน SCG โดยตรง 2 สาขา จ.พัทลุง</title>
-  <meta name="description" content="พัทลุงสิทธิชัยวัสดุก่อสร้าง ตัวแทนจำหน่าย SCG โดยตรง 2 สาขาในพัทลุง สาขาในเมือง โทร 074-615223 และสาขาถนนเอเชีย โทร 098-018-4724 จำหน่ายปูนซีเมนต์ กระเบื้อง เหล็ก วัสดุก่อสร้างครบวงจร">
-  <meta name="keywords" content="วัสดุก่อสร้างพัทลุง,ร้านวัสดุก่อสร้างพัทลุง,SCG พัทลุง,ปูนซีเมนต์พัทลุง,พัทลุงสิทธิชัย,building materials Phatthalung">
-  <meta name="robots" content="index, follow">
-  <meta name="geo.region" content="TH-93">
-  <meta name="geo.position" content="7.6187516;100.0811979">
-  <link rel="canonical" href="https://phatthalungsittichai.github.io/">
-  <meta property="og:type" content="website">
-  <meta property="og:url" content="https://phatthalungsittichai.github.io/">
-  <meta property="og:title" content="พัทลุงสิทธิชัยวัสดุก่อสร้าง | ตัวแทน SCG โดยตรง">
-  <meta property="og:description" content="วัสดุก่อสร้างครบวงจร ตัวแทน SCG โดยตรง 2 สาขาในพัทลุง ราคายุติธรรม จัดส่งทั่วจังหวัด">
-  <meta property="og:locale" content="th_TH">
-  <script type="application/ld+json">{"@context":"https://schema.org","@type":"HomeAndConstructionBusiness","name":"พัทลุงสิทธิชัยวัสดุก่อสร้าง","alternateName":"Phatthalung Sitthichai Building Materials","telephone":["074-615223","098-018-4724"],"url":"https://phatthalungsittichai.github.io/","address":{"@type":"PostalAddress","addressRegion":"จังหวัดพัทลุง","addressCountry":"TH"},"geo":{"@type":"GeoCoordinates","latitude":7.6187516,"longitude":100.0811979},"openingHours":"Mo-Sa 07:00-17:00","sameAs":["https://www.facebook.com/profile.php?id=100086447871447","https://www.facebook.com/profile.php?id=100057631621736"]}</script>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
-  <style>
-    *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
-    :root{--red:#E8002D;--dark:#1A1A2E;--bg:#FAFAF8;--border:#EEEEED;--radius:12px;--radius-lg:16px}
-    html{scroll-behavior:smooth}
-    body{font-family:'Sarabun',sans-serif;background:var(--bg);color:var(--dark)}
-    a{text-decoration:none;color:inherit}
-
-    /* OVERLAY */
-    #branchOverlay{position:fixed;inset:0;z-index:9999;background:rgba(8,8,20,.93);display:flex;flex-direction:column;align-items:center;justify-content:center;padding:20px}
-    #branchOverlay.hidden{display:none}
-    .ov-eye{color:rgba(255,255,255,.45);font-size:11px;font-weight:600;letter-spacing:2px;text-transform:uppercase;margin-bottom:8px}
-    .ov-h1{color:#fff;font-size:24px;font-weight:800;margin-bottom:6px;text-align:center}
-    .ov-sub{color:rgba(255,255,255,.55);font-size:14px;margin-bottom:28px;text-align:center;max-width:400px}
-    .branch-cards{display:grid;grid-template-columns:1fr 1fr;gap:14px;width:100%;max-width:660px}
-    .bc{background:#fff;border-radius:var(--radius-lg);padding:24px 20px 20px;cursor:pointer;border:3px solid transparent;transition:border-color .2s,transform .15s}
-    .bc:hover{border-color:var(--red);transform:translateY(-4px)}
-    .bc-badge{display:inline-block;background:var(--red);color:#fff;font-size:11px;font-weight:700;padding:3px 10px;border-radius:99px;margin-bottom:12px}
-    .bc-icon{font-size:36px;margin-bottom:10px}
-    .bc-name{font-size:20px;font-weight:800;margin-bottom:8px;line-height:1.3}
-    .bc-detail{font-size:12px;color:#666;line-height:1.9;margin-bottom:14px}
-    .bc-btn{width:100%;background:var(--dark);color:#fff;border:none;border-radius:8px;padding:11px;font-size:14px;font-weight:700;cursor:pointer;font-family:'Sarabun',sans-serif;transition:background .15s}
-    .bc:hover .bc-btn{background:var(--red)}
-
-    /* NAV */
-    nav{background:var(--dark);height:60px;padding:0 24px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100}
-    .nav-brand{color:#fff;font-size:13px;font-weight:700}
-    .nav-sub{color:rgba(255,255,255,.4);font-size:10px}
-    .nav-right{display:flex;align-items:center;gap:16px}
-    .nav-lnk{color:rgba(255,255,255,.6);font-size:13px;cursor:pointer;font-weight:500}
-    .nav-lnk:hover{color:#fff}
-    .branch-pill{display:flex;align-items:center;gap:6px;background:var(--red);color:#fff;font-size:11px;font-weight:700;padding:6px 14px;border-radius:99px;cursor:pointer;white-space:nowrap}
-
-    /* SCG BAR */
-    .scg-bar{background:var(--red);color:#fff;text-align:center;font-size:12px;padding:7px;font-weight:600;letter-spacing:.5px}
-
-    /* HERO */
-    .hero{background:var(--dark);padding:52px 24px 44px;text-align:center}
-    .hero-eye{display:inline-flex;align-items:center;gap:6px;background:rgba(232,0,45,.18);color:#ff8c8c;border:1px solid rgba(232,0,45,.35);font-size:12px;font-weight:700;padding:5px 16px;border-radius:99px;margin-bottom:18px}
-    .hero h1{color:#fff;font-size:30px;font-weight:800;line-height:1.35;margin-bottom:8px}
-    .hero h1 .acc{color:var(--red)}
-    .hero h1 .en{display:block;font-size:14px;font-weight:400;color:rgba(255,255,255,.45);margin-top:6px}
-    .hero-desc{color:rgba(255,255,255,.6);font-size:14px;margin:12px 0 26px}
-    .hero-btns{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
-    .btn-r{background:var(--red);color:#fff;border:none;border-radius:8px;padding:13px 26px;font-size:15px;font-weight:700;cursor:pointer;font-family:'Sarabun',sans-serif}
-    .btn-o{background:transparent;color:#fff;border:1.5px solid rgba(255,255,255,.35);border-radius:8px;padding:13px 26px;font-size:15px;font-weight:600;cursor:pointer;font-family:'Sarabun',sans-serif}
-    .hero-stats{display:flex;justify-content:center;margin-top:32px;padding-top:24px;border-top:1px solid rgba(255,255,255,.1)}
-    .hst{flex:1;max-width:150px;text-align:center}
-    .hst .n{color:#fff;font-size:24px;font-weight:800}
-    .hst .l{color:rgba(255,255,255,.45);font-size:11px;margin-top:2px}
-    .hst+.hst{border-left:1px solid rgba(255,255,255,.1)}
-
-    /* SECTION */
-    .sec-hd{padding:28px 24px 14px;display:flex;align-items:flex-end;justify-content:space-between}
-    .sec-t{font-size:18px;font-weight:800}
-    .sec-en{font-size:12px;color:#888;margin-top:2px}
-    .sec-more{font-size:13px;color:var(--red);font-weight:600;cursor:pointer}
-
-    /* CATEGORIES */
-    .cat-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;padding:0 24px 8px}
-    .cat-card{background:#fff;border-radius:var(--radius);overflow:hidden;cursor:pointer;border:1px solid var(--border);transition:transform .15s,box-shadow .15s}
-    .cat-card:hover{transform:translateY(-3px);box-shadow:0 6px 20px rgba(0,0,0,.07)}
-    .cat-ico{height:88px;display:flex;align-items:center;justify-content:center;font-size:34px}
-    .cat-nm{padding:8px 10px 10px;font-size:12px;font-weight:600;line-height:1.5}
-    .cat-en{font-size:10px;color:#999;font-weight:400}
-
-    /* PROMO */
-    .promo-row{padding:8px 24px 16px;display:grid;grid-template-columns:1fr 1fr;gap:12px}
-    .pb{border-radius:14px;padding:22px 20px;cursor:pointer;min-height:110px;display:flex;flex-direction:column}
-    .pb-red{background:var(--red)}
-    .pb-dark{background:var(--dark)}
-    .pb-tag{font-size:10px;font-weight:700;color:rgba(255,255,255,.65);letter-spacing:1px;text-transform:uppercase;margin-bottom:6px}
-    .pb-title{font-size:16px;font-weight:800;color:#fff;line-height:1.5;white-space:pre-line}
-    .pb-arr{margin-top:auto;padding-top:12px;color:rgba(255,255,255,.5);font-size:13px;font-weight:600}
-
-    /* PRODUCTS */
-    .prod-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;padding:0 24px 8px}
-    .prod-card{background:#fff;border-radius:var(--radius);border:1px solid var(--border);overflow:hidden;cursor:pointer;transition:transform .15s}
-    .prod-card:hover{transform:translateY(-2px)}
-    .prod-img{height:100px;display:flex;align-items:center;justify-content:center;background:#F7F6F2;font-size:40px}
-    .prod-info{padding:10px 12px 13px}
-    .prod-brand{font-size:10px;font-weight:700;color:var(--red);letter-spacing:.5px}
-    .prod-nm{font-size:13px;font-weight:600;margin-top:3px;line-height:1.4}
-    .prod-en{font-size:10px;color:#aaa;font-weight:400}
-    .prod-price{font-size:15px;font-weight:800;margin-top:7px}
-    .prod-unit{font-size:11px;color:#aaa;font-weight:400}
-
-    /* BRANCHES */
-    .branches-sec{padding:8px 24px 24px;display:grid;grid-template-columns:1fr 1fr;gap:14px}
-    .bic{background:#fff;border-radius:var(--radius-lg);border:1px solid var(--border);padding:20px}
-    .bic-tag{display:inline-block;background:var(--red);color:#fff;font-size:10px;font-weight:700;padding:3px 10px;border-radius:99px;margin-bottom:12px}
-    .bic-name{font-size:16px;font-weight:800;margin-bottom:14px;line-height:1.3}
-    .bic-row{display:flex;align-items:flex-start;gap:8px;margin-bottom:8px}
-    .bic-row i{font-size:16px;color:var(--red);margin-top:1px;flex-shrink:0}
-    .bic-row span{font-size:13px;color:#666;line-height:1.6}
-    .bic-row a{color:var(--red);font-weight:600}
-    .bic-links{display:flex;gap:8px;margin-top:16px}
-    .bic-btn{flex:1;text-align:center;padding:8px 6px;border-radius:8px;font-size:12px;font-weight:700;cursor:pointer;border:none;font-family:'Sarabun',sans-serif;display:flex;align-items:center;justify-content:center;gap:4px}
-    .bic-map{background:#1A73E8;color:#fff}
-    .bic-line{background:#06C755;color:#fff}
-    .bic-fb{background:#1877F2;color:#fff}
-    .bic-tel{background:var(--dark);color:#fff}
-
-    /* FAQ */
-    .faq-sec{padding:0 24px 28px}
-    .faq-item{background:#fff;border:1px solid var(--border);border-radius:var(--radius);margin-bottom:10px;overflow:hidden}
-    .faq-q{padding:16px 18px;font-size:14px;font-weight:700;cursor:pointer;display:flex;align-items:center;justify-content:space-between;gap:12px}
-    .faq-q i{color:var(--red);font-size:18px;flex-shrink:0;transition:transform .2s}
-    .faq-a{max-height:0;overflow:hidden;transition:max-height .3s ease}
-    .faq-a.open{max-height:200px}
-    .faq-a-inner{padding:0 18px 16px;font-size:13px;color:#666;line-height:1.8}
-    .faq-q.active i{transform:rotate(45deg)}
-
-    /* WHY */
-    .why{background:var(--dark);margin:4px 24px 24px;border-radius:var(--radius-lg);padding:28px 24px}
-    .why-t{color:#fff;font-size:18px;font-weight:800;margin-bottom:6px;text-align:center}
-    .why-s{color:rgba(255,255,255,.4);font-size:12px;text-align:center;margin-bottom:22px}
-    .why-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
-    .why-item{text-align:center}
-    .why-ico{font-size:30px;margin-bottom:8px}
-    .why-lbl{color:rgba(255,255,255,.85);font-size:13px;font-weight:600;line-height:1.6}
-    .why-en{color:rgba(255,255,255,.3);font-size:11px}
-
-    /* FOOTER */
-    footer{background:#0D0D1A;padding:32px 24px 16px}
-    .ft-grid{display:grid;grid-template-columns:1.5fr 1fr 1fr;gap:24px;padding-bottom:24px;border-bottom:1px solid rgba(255,255,255,.07)}
-    .ft-brand{color:#fff;font-size:14px;font-weight:800;margin-bottom:4px}
-    .ft-brand-en{color:rgba(255,255,255,.35);font-size:11px;margin-bottom:10px}
-    .ft-desc{color:rgba(255,255,255,.4);font-size:12px;line-height:1.8}
-    .ft-col h5{color:rgba(255,255,255,.7);font-size:12px;font-weight:700;margin-bottom:12px}
-    .ft-col a{display:flex;align-items:center;gap:6px;color:rgba(255,255,255,.4);font-size:12px;margin-bottom:8px}
-    .ft-col a:hover{color:rgba(255,255,255,.8)}
-    .ft-col a i{font-size:14px}
-    .ft-bot{padding-top:16px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px}
-    .ft-copy{color:rgba(255,255,255,.25);font-size:11px}
-    .scg-pill{background:rgba(232,0,45,.15);border:1px solid rgba(232,0,45,.3);border-radius:6px;padding:4px 10px;color:#ff8080;font-size:11px;font-weight:700}
-
-    /* ADMIN LINK */
-    .admin-fab{position:fixed;bottom:20px;right:20px;background:var(--dark);color:#fff;border:none;border-radius:99px;padding:10px 18px;font-size:13px;font-weight:700;cursor:pointer;font-family:'Sarabun',sans-serif;z-index:500;display:flex;align-items:center;gap:6px;box-shadow:0 4px 12px rgba(0,0,0,.3)}
-
-    @media(max-width:640px){
-      .branch-cards{grid-template-columns:1fr;max-width:340px}
-      .hero h1{font-size:24px}
-      .cat-grid{gap:8px}
-      .cat-ico{height:70px;font-size:28px}
-      .cat-nm{font-size:11px;padding:6px 8px 8px}
-      .promo-row,.prod-grid,.branches-sec{grid-template-columns:1fr}
-      .ft-grid{grid-template-columns:1fr}
-      nav{padding:0 14px}
-      .nav-lnk{display:none}
-    }
-  </style>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>พัทลุงสิทธิชัยวัสดุก่อสร้าง | ตัวแทน SCG โดยตรง 2 สาขา จ.พัทลุง</title>
+<meta name="description" content="พัทลุงสิทธิชัยวัสดุก่อสร้าง ตัวแทนจำหน่าย SCG โดยตรง 2 สาขาในพัทลุง สาขาในเมือง โทร 074-615223 สาขาถนนเอเชีย โทร 098-018-4724">
+<meta name="keywords" content="วัสดุก่อสร้างพัทลุง,SCG พัทลุง,ปูนซีเมนต์พัทลุง,พัทลุงสิทธิชัย,building materials Phatthalung">
+<meta name="robots" content="index,follow">
+<meta name="geo.region" content="TH-93"><meta name="geo.position" content="7.6187516;100.0811979">
+<link rel="canonical" href="https://phatthalungsittichai.github.io/">
+<meta property="og:type" content="website"><meta property="og:url" content="https://phatthalungsittichai.github.io/">
+<meta property="og:title" content="พัทลุงสิทธิชัยวัสดุก่อสร้าง | ตัวแทน SCG โดยตรง">
+<meta property="og:description" content="วัสดุก่อสร้างครบวงจร ตัวแทน SCG โดยตรง 2 สาขาในพัทลุง">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"HomeAndConstructionBusiness","name":"พัทลุงสิทธิชัยวัสดุก่อสร้าง","alternateName":"Phatthalung Sitthichai Building Materials","telephone":["074-615223","098-018-4724"],"url":"https://phatthalungsittichai.github.io/","geo":{"@type":"GeoCoordinates","latitude":7.6187516,"longitude":100.0811979},"openingHours":"Mo-Sa 07:00-17:00"}</script>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:root{--red:#E8002D;--dark:#1A1A2E;--bg:#FAFAF8;--border:#EEEEED;--r:12px;--rl:16px}
+html{scroll-behavior:smooth}body{font-family:'Sarabun',sans-serif;background:var(--bg);color:var(--dark)}a{text-decoration:none;color:inherit}
+/* OVERLAY */
+#branchOverlay{position:fixed;inset:0;z-index:9999;background:rgba(8,8,20,.93);display:flex;flex-direction:column;align-items:center;justify-content:center;padding:20px}
+#branchOverlay.hidden{display:none}
+.ov-eye{color:rgba(255,255,255,.45);font-size:11px;font-weight:600;letter-spacing:2px;text-transform:uppercase;margin-bottom:8px}
+.ov-h1{color:#fff;font-size:24px;font-weight:800;margin-bottom:6px;text-align:center}
+.ov-sub{color:rgba(255,255,255,.55);font-size:14px;margin-bottom:28px;text-align:center;max-width:400px}
+.branch-cards{display:grid;grid-template-columns:1fr 1fr;gap:14px;width:100%;max-width:660px}
+.bc{background:#fff;border-radius:var(--rl);padding:24px 20px 20px;cursor:pointer;border:3px solid transparent;transition:border-color .2s,transform .15s}
+.bc:hover{border-color:var(--red);transform:translateY(-4px)}
+.bc-badge{display:inline-block;background:var(--red);color:#fff;font-size:11px;font-weight:700;padding:3px 10px;border-radius:99px;margin-bottom:12px}
+.bc-icon{font-size:36px;margin-bottom:10px}
+.bc-name{font-size:20px;font-weight:800;margin-bottom:8px;line-height:1.3}
+.bc-detail{font-size:12px;color:#666;line-height:1.9;margin-bottom:14px}
+.bc-btn{width:100%;background:var(--dark);color:#fff;border:none;border-radius:8px;padding:11px;font-size:14px;font-weight:700;cursor:pointer;font-family:'Sarabun',sans-serif;transition:background .15s}
+.bc:hover .bc-btn{background:var(--red)}
+/* NAV */
+nav{background:var(--dark);height:60px;padding:0 24px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100}
+.nav-brand{color:#fff;font-size:13px;font-weight:700}.nav-sub{color:rgba(255,255,255,.4);font-size:10px}
+.nav-right{display:flex;align-items:center;gap:16px}
+.nav-lnk{color:rgba(255,255,255,.6);font-size:13px;cursor:pointer;font-weight:500}.nav-lnk:hover{color:#fff}
+.branch-pill{display:flex;align-items:center;gap:6px;background:var(--red);color:#fff;font-size:11px;font-weight:700;padding:6px 14px;border-radius:99px;cursor:pointer;white-space:nowrap}
+/* SCG BAR */
+.scg-bar{background:var(--red);color:#fff;text-align:center;font-size:12px;padding:7px;font-weight:600;letter-spacing:.5px}
+/* BRANCH INDICATOR */
+.branch-indicator{background:#fff;border-bottom:1px solid var(--border);padding:10px 24px;display:none;align-items:center;gap:10px}
+.branch-indicator.show{display:flex}
+.bi-icon{font-size:20px}
+.bi-text{font-size:13px;font-weight:600;color:var(--dark)}
+.bi-sub{font-size:11px;color:#888;margin-top:1px}
+.bi-change{margin-left:auto;background:transparent;border:1px solid var(--border);border-radius:6px;padding:4px 10px;font-size:11px;font-weight:600;color:#666;cursor:pointer;font-family:'Sarabun',sans-serif}
+/* HERO */
+.hero{background:var(--dark);padding:52px 24px 44px;text-align:center}
+.hero-eye{display:inline-flex;align-items:center;gap:6px;background:rgba(232,0,45,.18);color:#ff8c8c;border:1px solid rgba(232,0,45,.35);font-size:12px;font-weight:700;padding:5px 16px;border-radius:99px;margin-bottom:18px}
+.hero h1{color:#fff;font-size:30px;font-weight:800;line-height:1.35;margin-bottom:8px}
+.hero h1 .acc{color:var(--red)}
+.hero-desc{color:rgba(255,255,255,.6);font-size:14px;margin:12px 0 26px}
+.hero-btns{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+.btn-r{background:var(--red);color:#fff;border:none;border-radius:8px;padding:13px 26px;font-size:15px;font-weight:700;cursor:pointer;font-family:'Sarabun',sans-serif}
+.btn-o{background:transparent;color:#fff;border:1.5px solid rgba(255,255,255,.35);border-radius:8px;padding:13px 26px;font-size:15px;font-weight:600;cursor:pointer;font-family:'Sarabun',sans-serif}
+.hero-stats{display:flex;justify-content:center;margin-top:32px;padding-top:24px;border-top:1px solid rgba(255,255,255,.1)}
+.hst{flex:1;max-width:150px;text-align:center}.hst .n{color:#fff;font-size:24px;font-weight:800}.hst .l{color:rgba(255,255,255,.45);font-size:11px;margin-top:2px;white-space:pre-line}
+.hst+.hst{border-left:1px solid rgba(255,255,255,.1)}
+/* SEC */
+.sec-hd{padding:28px 24px 14px;display:flex;align-items:flex-end;justify-content:space-between}
+.sec-t{font-size:18px;font-weight:800}.sec-en{font-size:12px;color:#888;margin-top:2px}
+/* CATS */
+.cat-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;padding:0 24px 8px}
+.cat-card{background:#fff;border-radius:var(--r);overflow:hidden;cursor:pointer;border:1px solid var(--border);transition:transform .15s,box-shadow .15s}
+.cat-card:hover{transform:translateY(-3px);box-shadow:0 6px 20px rgba(0,0,0,.07)}
+.cat-ico{height:88px;display:flex;align-items:center;justify-content:center;font-size:34px}
+.cat-nm{padding:8px 10px 10px;font-size:12px;font-weight:600;line-height:1.5}.cat-en{font-size:10px;color:#999;font-weight:400}
+/* PROMO */
+.promo-row{padding:8px 24px 16px;display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.pb{border-radius:14px;padding:22px 20px;cursor:pointer;min-height:110px;display:flex;flex-direction:column}
+.pb-red{background:var(--red)}.pb-dark{background:var(--dark)}
+.pb-tag{font-size:10px;font-weight:700;color:rgba(255,255,255,.65);letter-spacing:1px;text-transform:uppercase;margin-bottom:6px}
+.pb-title{font-size:16px;font-weight:800;color:#fff;line-height:1.5;white-space:pre-line}
+.pb-arr{margin-top:auto;padding-top:12px;color:rgba(255,255,255,.5);font-size:13px;font-weight:600}
+/* PRODUCTS */
+.prod-section{padding:0 24px 8px}
+.prod-tabs{display:flex;gap:0;margin-bottom:16px;background:#fff;border-radius:var(--r);border:1px solid var(--border);overflow:hidden;display:none}
+.prod-tabs.show{display:flex}
+.prod-tab{flex:1;padding:10px;text-align:center;font-size:13px;font-weight:600;cursor:pointer;color:#888;border-right:1px solid var(--border);transition:all .15s}
+.prod-tab:last-child{border-right:none}
+.prod-tab.on{background:var(--dark);color:#fff}
+.prod-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.prod-card{background:#fff;border-radius:var(--r);border:1px solid var(--border);overflow:hidden;cursor:pointer;transition:transform .15s}
+.prod-card:hover{transform:translateY(-2px)}
+.prod-img{height:100px;display:flex;align-items:center;justify-content:center;background:#F7F6F2;font-size:40px}
+.prod-info{padding:10px 12px 13px}
+.prod-brand{font-size:10px;font-weight:700;color:var(--red);letter-spacing:.5px}
+.prod-nm{font-size:13px;font-weight:600;margin-top:3px;line-height:1.4}.prod-en{font-size:10px;color:#aaa;font-weight:400}
+.prod-price{font-size:15px;font-weight:800;margin-top:7px}.prod-unit{font-size:11px;color:#aaa;font-weight:400}
+.prod-badge{display:inline-block;background:#F0FFF4;color:#15803d;font-size:10px;font-weight:700;padding:2px 7px;border-radius:99px;margin-top:5px}
+/* BRANCHES */
+.branches-sec{padding:8px 24px 24px;display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.bic{background:#fff;border-radius:var(--rl);border:1px solid var(--border);padding:20px}
+.bic-tag{display:inline-block;background:var(--red);color:#fff;font-size:10px;font-weight:700;padding:3px 10px;border-radius:99px;margin-bottom:12px}
+.bic-name{font-size:16px;font-weight:800;margin-bottom:14px;line-height:1.3}
+.bic-row{display:flex;align-items:flex-start;gap:8px;margin-bottom:8px}
+.bic-row i{font-size:16px;color:var(--red);margin-top:1px;flex-shrink:0}.bic-row span{font-size:13px;color:#666;line-height:1.6}.bic-row a{color:var(--red);font-weight:600}
+.bic-links{display:flex;gap:8px;margin-top:16px}
+.bic-btn{flex:1;text-align:center;padding:8px 6px;border-radius:8px;font-size:12px;font-weight:700;cursor:pointer;border:none;font-family:'Sarabun',sans-serif;display:flex;align-items:center;justify-content:center;gap:4px}
+.bic-map{background:#1A73E8;color:#fff}.bic-line{background:#06C755;color:#fff}.bic-fb{background:#1877F2;color:#fff}.bic-tel{background:var(--dark);color:#fff}
+/* FAQ */
+.faq-sec{padding:0 24px 28px}
+.faq-item{background:#fff;border:1px solid var(--border);border-radius:var(--r);margin-bottom:10px;overflow:hidden}
+.faq-q{padding:16px 18px;font-size:14px;font-weight:700;cursor:pointer;display:flex;align-items:center;justify-content:space-between;gap:12px}
+.faq-q i{color:var(--red);font-size:18px;flex-shrink:0;transition:transform .2s}
+.faq-a{max-height:0;overflow:hidden;transition:max-height .3s ease}
+.faq-a.open{max-height:200px}
+.faq-a-inner{padding:0 18px 16px;font-size:13px;color:#666;line-height:1.8}
+.faq-q.active i{transform:rotate(45deg)}
+/* WHY */
+.why{background:var(--dark);margin:4px 24px 24px;border-radius:var(--rl);padding:28px 24px}
+.why-t{color:#fff;font-size:18px;font-weight:800;margin-bottom:6px;text-align:center}
+.why-s{color:rgba(255,255,255,.4);font-size:12px;text-align:center;margin-bottom:22px}
+.why-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.why-item{text-align:center}.why-ico{font-size:30px;margin-bottom:8px}
+.why-lbl{color:rgba(255,255,255,.85);font-size:13px;font-weight:600;line-height:1.6}.why-en{color:rgba(255,255,255,.3);font-size:11px}
+/* FOOTER */
+footer{background:#0D0D1A;padding:32px 24px 16px}
+.ft-grid{display:grid;grid-template-columns:1.5fr 1fr 1fr;gap:24px;padding-bottom:24px;border-bottom:1px solid rgba(255,255,255,.07)}
+.ft-brand{color:#fff;font-size:14px;font-weight:800;margin-bottom:4px}.ft-brand-en{color:rgba(255,255,255,.35);font-size:11px;margin-bottom:10px}
+.ft-desc{color:rgba(255,255,255,.4);font-size:12px;line-height:1.8;white-space:pre-line}
+.ft-col h5{color:rgba(255,255,255,.7);font-size:12px;font-weight:700;margin-bottom:12px}
+.ft-col a{display:flex;align-items:center;gap:6px;color:rgba(255,255,255,.4);font-size:12px;margin-bottom:8px}.ft-col a:hover{color:rgba(255,255,255,.8)}.ft-col a i{font-size:14px}
+.ft-bot{padding-top:16px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px}
+.ft-copy{color:rgba(255,255,255,.25);font-size:11px}.scg-pill{background:rgba(232,0,45,.15);border:1px solid rgba(232,0,45,.3);border-radius:6px;padding:4px 10px;color:#ff8080;font-size:11px;font-weight:700}
+.admin-fab{position:fixed;bottom:20px;right:20px;background:var(--dark);color:#fff;border:none;border-radius:99px;padding:10px 18px;font-size:13px;font-weight:700;cursor:pointer;font-family:'Sarabun',sans-serif;z-index:500;display:flex;align-items:center;gap:6px;box-shadow:0 4px 12px rgba(0,0,0,.3);text-decoration:none}
+@media(max-width:640px){.branch-cards{grid-template-columns:1fr;max-width:340px}.hero h1{font-size:24px}.cat-grid{gap:8px}.cat-ico{height:70px;font-size:28px}.cat-nm{font-size:11px;padding:6px 8px 8px}.promo-row,.prod-grid,.branches-sec{grid-template-columns:1fr}.ft-grid{grid-template-columns:1fr}nav{padding:0 14px}.nav-lnk{display:none}}
+</style>
 </head>
 <body>
 
-<!-- BRANCH OVERLAY -->
 <div id="branchOverlay">
-  <div class="ov-eye">PHATTHALUNG SITTHICHAI</div>
-  <h2 class="ov-h1">กรุณาเลือกสาขา</h2>
-  <p class="ov-sub">เพื่อแสดงสินค้าและราคาที่ถูกต้องสำหรับสาขาของคุณ</p>
+  <div class="ov-eye" id="ov-eyebrow"></div>
+  <h2 class="ov-h1" id="ov-headline"></h2>
+  <p class="ov-sub" id="ov-sub"></p>
   <div class="branch-cards" id="branchCards"></div>
 </div>
 
-<!-- NAV -->
 <nav>
-  <div>
-    <div class="nav-brand" id="navBrand"></div>
-    <div class="nav-sub">ตัวแทนจำหน่าย SCG โดยตรง</div>
-  </div>
+  <div><div class="nav-brand" id="navBrand"></div><div class="nav-sub">ตัวแทนจำหน่าย SCG โดยตรง</div></div>
   <div class="nav-right">
     <a class="nav-lnk" href="#products">สินค้า</a>
     <a class="nav-lnk" href="#branches">สาขา</a>
     <a class="nav-lnk" href="#faq">FAQ</a>
     <div class="branch-pill" onclick="document.getElementById('branchOverlay').classList.remove('hidden')">
-      <i class="ti ti-map-pin"></i>
-      <span id="branchPillText">เลือกสาขา</span>
+      <i class="ti ti-map-pin"></i><span id="branchPillText">เลือกสาขา</span>
     </div>
   </div>
 </nav>
 
 <div class="scg-bar">✓ ตัวแทนจำหน่ายผลิตภัณฑ์ SCG โดยตรง &nbsp;|&nbsp; SCG Authorized Dealer &nbsp;|&nbsp; รับประกันของแท้ราคามาตรฐาน</div>
 
+<div class="branch-indicator" id="branchIndicator">
+  <div class="bi-icon" id="biIcon"></div>
+  <div><div class="bi-text" id="biText"></div><div class="bi-sub">กำลังแสดงสินค้าของสาขานี้</div></div>
+  <button class="bi-change" onclick="document.getElementById('branchOverlay').classList.remove('hidden')">เปลี่ยนสาขา</button>
+</div>
+
 <main>
-<!-- HERO -->
 <section class="hero">
-  <div class="hero-eye">🏆 ไว้วางใจกว่า <span id="heroYears"></span> ปี · Trusted for <span id="heroYears2"></span> Years</div>
-  <h1>วัสดุก่อสร้างคุณภาพ <span class="acc">SCG</span><br>ครบทุกประเภท<span class="en" id="heroEn"></span></h1>
+  <div class="hero-eye" id="heroEye"></div>
+  <h1 id="heroH1"></h1>
   <p class="hero-desc" id="heroDesc"></p>
   <div class="hero-btns">
-    <button class="btn-r" onclick="document.getElementById('branchOverlay').classList.remove('hidden')">เลือกสาขาและดูสินค้า →</button>
-    <button class="btn-o" onclick="document.getElementById('branches').scrollIntoView({behavior:'smooth'})">ข้อมูลสาขา</button>
+    <button class="btn-r" onclick="document.getElementById('branchOverlay').classList.remove('hidden')" id="heroBtn1"></button>
+    <button class="btn-o" onclick="document.getElementById('branches').scrollIntoView({behavior:'smooth'})" id="heroBtn2"></button>
   </div>
-  <div class="hero-stats">
-    <div class="hst"><div class="n">2</div><div class="l">สาขา<br>Branches</div></div>
-    <div class="hst"><div class="n" id="statYear"></div><div class="l">ปีประสบการณ์<br>Years</div></div>
-    <div class="hst"><div class="n">SCG</div><div class="l">ตัวแทนโดยตรง<br>Direct Dealer</div></div>
-  </div>
+  <div class="hero-stats" id="heroStats"></div>
 </section>
 
-<!-- CATEGORIES -->
 <section id="products">
-  <div class="sec-hd">
-    <div><div class="sec-t">หมวดหมู่สินค้า</div><div class="sec-en">Product Categories</div></div>
-  </div>
+  <div class="sec-hd"><div><div class="sec-t">หมวดหมู่สินค้า</div><div class="sec-en">Product Categories</div></div></div>
   <div class="cat-grid" id="catGrid"></div>
 </section>
 
-<!-- PROMOS -->
 <div class="promo-row" id="promoRow"></div>
 
-<!-- PRODUCTS -->
 <section>
   <div class="sec-hd">
-    <div><div class="sec-t">สินค้าแนะนำ</div><div class="sec-en">Featured Products</div></div>
+    <div><div class="sec-t" id="prodTitle">สินค้าแนะนำ</div><div class="sec-en">Featured Products</div></div>
   </div>
-  <div class="prod-grid" id="prodGrid"></div>
+  <div class="prod-section">
+    <div class="prod-tabs" id="prodTabs">
+      <div class="prod-tab on" onclick="filterProds('all',this)">สินค้าทั้งหมด</div>
+      <div class="prod-tab" onclick="filterProds('branch',this)" id="tabBranch">สาขาของฉัน</div>
+      <div class="prod-tab" onclick="filterProds('both',this)">มีทุกสาขา</div>
+    </div>
+    <div class="prod-grid" id="prodGrid"></div>
+  </div>
 </section>
 
-<!-- BRANCHES -->
 <section id="branches">
   <div class="sec-hd"><div><div class="sec-t">ข้อมูลสาขา</div><div class="sec-en">Branch Locations</div></div></div>
   <div class="branches-sec" id="branchInfoGrid"></div>
 </section>
 
-<!-- FAQ -->
 <section id="faq">
   <div class="sec-hd"><div><div class="sec-t">คำถามที่พบบ่อย</div><div class="sec-en">FAQ</div></div></div>
   <div class="faq-sec" id="faqList"></div>
 </section>
 
-<!-- WHY -->
 <div class="why">
-  <div class="why-t">ทำไมต้องเลือกเรา · Why Choose Us</div>
-  <div class="why-s">มั่นใจได้ทุกด้าน · Trusted on every front</div>
-  <div class="why-grid">
-    <div class="why-item"><div class="why-ico">🏅</div><div class="why-lbl">ตัวแทน SCG โดยตรง<div class="why-en">SCG Direct Dealer</div></div></div>
-    <div class="why-item"><div class="why-ico">🚚</div><div class="why-lbl">จัดส่งทั่วพัทลุง<div class="why-en">Province-wide Delivery</div></div></div>
-    <div class="why-item"><div class="why-ico">💬</div><div class="why-lbl">ทีมงานให้คำปรึกษา<div class="why-en">Expert Consultation</div></div></div>
-  </div>
+  <div class="why-t" id="whyTitle"></div>
+  <div class="why-s" id="whySub"></div>
+  <div class="why-grid" id="whyGrid"></div>
 </div>
 </main>
 
-<!-- FOOTER -->
 <footer>
   <div class="ft-grid" id="ftGrid"></div>
   <div class="ft-bot">
-    <div class="ft-copy">© 2567–2568 พัทลุงสิทธิชัยวัสดุก่อสร้าง · All rights reserved</div>
-    <div class="scg-pill">SCG Authorized Dealer</div>
+    <div class="ft-copy" id="ftCopy"></div>
+    <div class="scg-pill" id="ftBadge"></div>
   </div>
 </footer>
 
-<!-- ADMIN FAB -->
 <a href="admin.html" class="admin-fab"><i class="ti ti-settings" style="font-size:16px"></i> จัดการเว็บ</a>
 
 <script src="site-config.js"></script>
 <script>
 var C = SITE_CONFIG;
+var currentBranch = null;
+var currentFilter = 'all';
 var $ = function(id){ return document.getElementById(id); };
 
-// Apply CSS color
 document.documentElement.style.setProperty('--red', C.colors.primary);
 document.documentElement.style.setProperty('--dark', C.colors.dark);
 
-// Nav & Hero
-$('navBrand').textContent = C.shopName;
-$('heroYears').textContent = C.established;
-$('heroYears2').textContent = C.established;
-$('heroEn').textContent = 'Quality Building Materials · SCG Authorized Dealer · ' + C.shopNameEn;
-$('heroDesc').textContent = '2 สาขา อ.เมืองพัทลุง & ถนนเอเชีย · ' + C.tagline;
-$('statYear').textContent = C.established;
-
-// Branch overlay
-var bCards = C.branches.map(function(b){
-  return '<div class="bc" onclick="selectBranch(\''+b.name+'\')">'+
+// Overlay
+$('ov-eyebrow').textContent = C.overlay.eyebrow;
+$('ov-headline').textContent = C.overlay.headline;
+$('ov-sub').textContent = C.overlay.sub;
+$('branchCards').innerHTML = C.branches.map(function(b){
+  return '<div class="bc" onclick="selectBranch(\''+b.id+'\')">'+
     '<span class="bc-badge">'+b.badge+'</span>'+
     '<div class="bc-icon">'+b.icon+'</div>'+
     '<div class="bc-name">'+b.name+'<br><span style="font-size:13px;font-weight:500;color:#888;">'+b.nameEn+'</span></div>'+
     '<div class="bc-detail">📍 '+b.address+'<br>📞 '+b.phone+'<br>🕐 '+b.hours+'</div>'+
-    '<button class="bc-btn">เลือกสาขานี้ →</button>'+
+    '<button class="bc-btn">'+C.overlay.btnText+' →</button>'+
   '</div>';
 }).join('');
-$('branchCards').innerHTML = bCards;
+
+// Nav
+$('navBrand').textContent = C.shopName;
+
+// Hero
+var h = C.hero;
+$('heroEye').textContent = h.eyebrow;
+$('heroH1').innerHTML = h.line1.replace('SCG','<span class="acc">SCG</span>')+'<br>'+h.line2;
+$('heroDesc').textContent = h.desc;
+$('heroBtn1').textContent = h.btn1;
+$('heroBtn2').textContent = h.btn2;
+$('heroStats').innerHTML = [
+  {n:h.s1n,l:h.s1l},{n:h.s2n,l:h.s2l},{n:h.s3n,l:h.s3l}
+].map(function(s,i){
+  return '<div class="hst"'+(i>0?' style="border-left:1px solid rgba(255,255,255,.1)"':'')+'>'+
+    '<div class="n">'+s.n+'</div><div class="l">'+s.l+'</div></div>';
+}).join('');
 
 // Categories
 $('catGrid').innerHTML = C.categories.map(function(c){
@@ -315,20 +275,44 @@ $('promoRow').innerHTML = C.promos.map(function(p){
   return '<div class="pb pb-'+(p.color==='red'?'red':'dark')+'">'+
     '<div class="pb-tag">'+p.tag+'</div>'+
     '<div class="pb-title">'+p.title+'</div>'+
-    '<div class="pb-arr">ติดต่อสอบถาม →</div>'+
-  '</div>';
+    '<div class="pb-arr">ติดต่อสอบถาม →</div></div>';
 }).join('');
 
 // Products
-$('prodGrid').innerHTML = C.products.map(function(p){
-  return '<article class="prod-card">'+
-    '<div class="prod-img">'+p.icon+'</div>'+
-    '<div class="prod-info">'+
-      '<div class="prod-brand">'+p.brand+'</div>'+
-      '<div class="prod-nm">'+p.name+'<div class="prod-en">'+p.nameEn+'</div></div>'+
-      '<div class="prod-price">฿'+p.price+' <span class="prod-unit">/'+p.unit+'</span></div>'+
-    '</div></article>';
-}).join('');
+function renderProds(){
+  var branch = currentBranch;
+  var filter = currentFilter;
+  var prods = C.products.filter(function(p){
+    if(filter === 'both') return p.branches === 'both';
+    if(filter === 'branch' && branch) return p.branches === branch || p.branches === 'both';
+    return true; // all
+  });
+  if(prods.length === 0){
+    $('prodGrid').innerHTML = '<div style="grid-column:1/-1;text-align:center;padding:32px;color:#aaa;font-size:14px;">ไม่มีสินค้าในหมวดนี้สำหรับสาขาที่เลือก</div>';
+    return;
+  }
+  $('prodGrid').innerHTML = prods.map(function(p){
+    var badge = p.branches === 'both' ? '<div class="prod-badge">มีทุกสาขา</div>' :
+      p.branches === 'city' ? '<div class="prod-badge" style="background:#EFF6FF;color:#1d4ed8;">สาขาในเมือง</div>' :
+      '<div class="prod-badge" style="background:#FFF7ED;color:#c2410c;">สาขาถนนเอเชีย</div>';
+    return '<article class="prod-card">'+
+      '<div class="prod-img">'+p.icon+'</div>'+
+      '<div class="prod-info">'+
+        '<div class="prod-brand">'+p.brand+'</div>'+
+        '<div class="prod-nm">'+p.name+'<div class="prod-en">'+p.nameEn+'</div></div>'+
+        '<div class="prod-price">฿'+p.price+' <span class="prod-unit">/'+p.unit+'</span></div>'+
+        badge+
+      '</div></article>';
+  }).join('');
+}
+renderProds();
+
+function filterProds(type, el){
+  currentFilter = type;
+  document.querySelectorAll('.prod-tab').forEach(function(t){t.classList.remove('on');});
+  el.classList.add('on');
+  renderProds();
+}
 
 // Branch info
 $('branchInfoGrid').innerHTML = C.branches.map(function(b){
@@ -347,35 +331,61 @@ $('branchInfoGrid').innerHTML = C.branches.map(function(b){
 }).join('');
 
 // FAQ
-$('faqList').innerHTML = C.faqs.map(function(f,i){
+$('faqList').innerHTML = C.faqs.map(function(f){
   return '<div class="faq-item">'+
     '<button class="faq-q" onclick="toggleFaq(this)" aria-expanded="false">'+
-      '<span>'+f.q+'</span><i class="ti ti-plus"></i>'+
-    '</button>'+
-    '<div class="faq-a"><div class="faq-a-inner">'+f.a+'</div></div>'+
-  '</div>';
+      '<span>'+f.q+'</span><i class="ti ti-plus"></i></button>'+
+    '<div class="faq-a"><div class="faq-a-inner">'+f.a+'</div></div></div>';
+}).join('');
+
+// Why
+$('whyTitle').textContent = C.why.title;
+$('whySub').textContent = C.why.sub;
+$('whyGrid').innerHTML = C.why.items.map(function(w){
+  return '<div class="why-item"><div class="why-ico">'+w.icon+'</div>'+
+    '<div class="why-lbl">'+w.label+'<div class="why-en">'+w.labelEn+'</div></div></div>';
 }).join('');
 
 // Footer
-var ftBranches = C.branches.map(function(b){
+var ftB = C.branches.map(function(b){
   return '<div class="ft-col"><h5>'+b.name+'</h5>'+
-    '<a href="tel:'+b.phone.replace(/-/g,'')+'"><i class="ti ti-phone"></i> '+b.phone+'</a>'+
-    '<a href="'+b.lineUrl+'" target="_blank"><i class="ti ti-brand-line"></i> Line Official</a>'+
-    '<a href="'+b.fbUrl+'" target="_blank"><i class="ti ti-brand-facebook"></i> Facebook</a>'+
-    '<a href="'+b.mapUrl+'" target="_blank"><i class="ti ti-map-pin"></i> Google Maps</a>'+
+    '<a href="tel:'+b.phone.replace(/-/g,'')+'"><i class="ti ti-phone"></i>'+b.phone+'</a>'+
+    '<a href="'+b.lineUrl+'" target="_blank"><i class="ti ti-brand-line"></i>Line Official</a>'+
+    '<a href="'+b.fbUrl+'" target="_blank"><i class="ti ti-brand-facebook"></i>Facebook</a>'+
+    '<a href="'+b.mapUrl+'" target="_blank"><i class="ti ti-map-pin"></i>Google Maps</a>'+
   '</div>';
 }).join('');
-$('ftGrid').innerHTML = '<div><div class="ft-brand">'+C.shopName+'</div><div class="ft-brand-en">'+C.shopNameEn+'</div><div class="ft-desc">ตัวแทนจำหน่ายผลิตภัณฑ์ SCG โดยตรง<br>ประสบการณ์กว่า '+C.established+' ปีในจังหวัดพัทลุง<br>Authorized SCG Dealer</div></div>'+ftBranches;
+$('ftGrid').innerHTML = '<div><div class="ft-brand">'+C.shopName+'</div>'+
+  '<div class="ft-brand-en">'+C.shopNameEn+'</div>'+
+  '<div class="ft-desc">'+C.footer.desc+'</div></div>'+ftB;
+$('ftCopy').textContent = C.footer.copy;
+$('ftBadge').textContent = C.footer.badge;
 
-function selectBranch(name){
-  document.getElementById('branchOverlay').classList.add('hidden');
-  document.getElementById('branchPillText').textContent = name;
+// SELECT BRANCH
+function selectBranch(id){
+  currentBranch = id;
+  var b = C.branches.find(function(x){return x.id===id;});
+  $('branchOverlay').classList.add('hidden');
+  $('branchPillText').textContent = b.icon+' '+b.name;
+  // indicator
+  $('biIcon').textContent = b.icon;
+  $('biText').textContent = b.name;
+  $('branchIndicator').classList.add('show');
+  // show tabs
+  $('prodTabs').classList.add('show');
+  $('tabBranch').textContent = 'เฉพาะ'+b.name;
+  // filter to branch products
+  currentFilter = 'branch';
+  document.querySelectorAll('.prod-tab').forEach(function(t){t.classList.remove('on');});
+  $('tabBranch').classList.add('on');
+  renderProds();
 }
+
 function toggleFaq(btn){
-  var ans = btn.nextElementSibling;
-  var isOpen = ans.classList.contains('open');
-  document.querySelectorAll('.faq-a.open').forEach(function(el){el.classList.remove('open')});
-  document.querySelectorAll('.faq-q.active').forEach(function(el){el.classList.remove('active')});
+  var ans=btn.nextElementSibling;
+  var isOpen=ans.classList.contains('open');
+  document.querySelectorAll('.faq-a.open').forEach(function(el){el.classList.remove('open');});
+  document.querySelectorAll('.faq-q.active').forEach(function(el){el.classList.remove('active');});
   if(!isOpen){ans.classList.add('open');btn.classList.add('active');}
   btn.setAttribute('aria-expanded',!isOpen);
 }
