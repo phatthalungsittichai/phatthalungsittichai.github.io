@@ -31,7 +31,7 @@ var SITE_CONFIG = {
 
   branches: [
     {
-      id: "city", badge: "สาขาที่ 1", icon: "🏪",
+      id: "city", badge: "สาขาที่ 1", icon: "🏪", image: "logo.png",
       name: "สาขาในเมือง", nameEn: "City Branch",
       address: "210/212 ถ.ราเมศวร์ ต.คูหาสวรรค์ อ.เมือง จ.พัทลุง 93000",
       phone: "074-615223", hours: "จันทร์–เสาร์ 07:00–17:00 น.",
@@ -40,7 +40,7 @@ var SITE_CONFIG = {
       fbUrl: "https://www.facebook.com/profile.php?id=100086447871447"
     },
     {
-      id: "asia", badge: "สาขาที่ 2", icon: "🏬",
+      id: "asia", badge: "สาขาที่ 2", icon: "🏬", image: "Branch.jpg",
       name: "สาขาถนนเอเชีย", nameEn: "Asia Road Branch",
       address: "คลังเซรามิคพัทลุง ถนนเอเชีย จ.พัทลุง",
       phone: "098-018-4724", hours: "จันทร์–เสาร์ 07:00–17:00 น.",
